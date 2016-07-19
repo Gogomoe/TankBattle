@@ -1,16 +1,16 @@
 package tankbattle.core.time;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
+import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.event.ListenerItem;
 
@@ -18,9 +18,7 @@ public class TimerGroup {
 
 	private Map<String, TimerGroup> timers = Collections.synchronizedMap(new HashMap<>());
 
-	private Set<ListenerItem<TimeEvent>> listeners = Collections
-			.synchronizedSet(new HashSet<ListenerItem<TimeEvent>>());
-
+	private EventProcess process = new EventProcess();
 	private boolean running = false;
 
 	private int total = 0;
@@ -47,6 +45,7 @@ public class TimerGroup {
 	/**
 	 * 该计时器经过一段时间<br/>
 	 * 如果达到计时器的计时,则会向所有该计时器上的监听器发送 TimeEvent 事件<br/>
+	 * 
 	 * @param time
 	 */
 	public void pass(int time) {
@@ -222,66 +221,48 @@ public class TimerGroup {
 		return this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ListenerItem<TimeEvent>> listeners() {
-		return listeners.stream().sorted((a, b) -> {
-			int x = a.getPriority() - b.getPriority();
-			return x == 0 ? a.getName().compareTo(b.getName()) : x;
-		}).collect(Collectors.toList());
+		List<ListenerItem<TimeEvent>> l2 = new ArrayList<>();
+		process.listeners().forEach(e -> {
+			l2.add((ListenerItem<TimeEvent>) e);
+		});
+		return l2;
 	}
 
 	public String addListener(Listener<TimeEvent> listener) {
-		return addListener(listener.getClass().getName(), Listener.NORMAL, listener);
+		return process.addListener(TimeEvent.class, listener);
 	}
 
 	public String addListener(int priority, Listener<TimeEvent> listener) {
-		return addListener(listener.getClass().getName(), priority, listener);
+		return process.addListener(priority, TimeEvent.class, listener);
 	}
 
 	public String addListener(String name, Listener<TimeEvent> listener) {
-		return addListener(name, Listener.NORMAL, listener);
+		return process.addListener(name, TimeEvent.class, listener);
 	}
 
 	public String addListener(String name, int priority, Listener<TimeEvent> listener) {
-		if (name == null || listener == null) {
-			throw new NullPointerException("addListener传入null");
-		}
-		listeners.add(new ListenerItem<>(name, priority, TimeEvent.class, listener));
-		return name;
+		return process.addListener(name, priority, TimeEvent.class, listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ListenerItem<TimeEvent> getListener(String name) {
-		if (name == null) {
-			return null;
-		}
-		Optional<ListenerItem<TimeEvent>> o = listeners.stream().filter(e -> e.getName().equals(name)).findFirst();
-		if (o.isPresent()) {
-			return o.get();
-		}
-		return null;
+		return (ListenerItem<TimeEvent>) process.getListener(name);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ListenerItem<TimeEvent> getListener(Listener<TimeEvent> listener) {
-		if (listener == null) {
-			return null;
-		}
-		Optional<ListenerItem<TimeEvent>> o = listeners.stream().filter(e -> e.getListener().equals(listener))
-				.findFirst();
-
-		if (o.isPresent()) {
-			return o.get();
-		}
-		return null;
+		return (ListenerItem<TimeEvent>) process.getListener(listener);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ListenerItem<TimeEvent> removeListener(String name) {
-		ListenerItem<TimeEvent> l = getListener(name);
-		listeners.remove(l);
-		return l;
+		return (ListenerItem<TimeEvent>) process.removeListener(name);
 	}
 
+	@SuppressWarnings("unchecked")
 	public ListenerItem<TimeEvent> removeListener(Listener<TimeEvent> listener) {
-		ListenerItem<TimeEvent> l = getListener(listener);
-		listeners.remove(l);
-		return l;
+		return (ListenerItem<TimeEvent>) process.removeListener(listener);
 	}
 }
