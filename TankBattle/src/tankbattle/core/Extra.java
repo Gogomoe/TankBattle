@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Extra implements Extrable {
 
-	public Map<String, Object> extras = Collections.synchronizedMap(new HashMap<String, Object>());
+	private Map<String, Object> extras = Collections.synchronizedMap(new HashMap<String, Object>());
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -41,11 +41,6 @@ public class Extra implements Extrable {
 	}
 
 	@Override
-	public double getDoubleSafe(String key) {
-		return ((Double) extras.get(key)).doubleValue();
-	}
-
-	@Override
 	public boolean getBool(String key) {
 		return ((Boolean) extras.get(key)).booleanValue();
 	}
@@ -53,6 +48,11 @@ public class Extra implements Extrable {
 	@Override
 	public String getString(String key) {
 		return (String) extras.get(key);
+	}
+
+	@Override
+	public Extrable extra() {
+		return this;
 	}
 
 }

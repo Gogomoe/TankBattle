@@ -7,22 +7,38 @@ package tankbattle.core;
  */
 public interface Extrable {
 
-	public <E> E put(String key, E obj);
+	public Extrable extra();
 
-	public Object getObj(String key);
+	default public <E> E put(String key, E obj) {
+		return extra().put(key, obj);
+	}
 
-	public <T> T getObj(String key, Class<T> T);
+	default public Object getObj(String key) {
+		return extra().getObj(key);
+	}
 
-	public boolean contains(String key);
+	default public <T> T getObj(String key, Class<T> T) {
+		return extra().getObj(key, T);
+	}
 
-	public int getInt(String key);
+	default public boolean contains(String key) {
+		return extra().contains(key);
+	}
 
-	public double getDouble(String key);
+	default public int getInt(String key) {
+		return extra().getInt(key);
+	}
 
-	public double getDoubleSafe(String key);
+	default public double getDouble(String key) {
+		return extra().getDouble(key);
+	}
 
-	public boolean getBool(String key);
+	default public boolean getBool(String key) {
+		return extra().getBool(key);
+	}
 
-	public String getString(String key);
+	default public String getString(String key) {
+		return extra().getString(key);
+	}
 
 }

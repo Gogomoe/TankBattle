@@ -7,7 +7,9 @@ import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.move.Movable;
 import tankbattle.core.position.move.MovePropertyEvent;
 
-public class Entity extends Extra implements Movable, Livable {
+public class Entity implements Movable, Livable, Extrable {
+
+	private Extra extra = new Extra();
 
 	public static Direction ENTITY_TOWARDS = Direction.SOUTH;
 	public static int ENTITY_LAYER = 0;
@@ -27,6 +29,11 @@ public class Entity extends Extra implements Movable, Livable {
 		TankBattle.getGame().getProcess()
 				.send(new MovePropertyEvent(this).setSpeed(ENTITY_SPEED).setCode(MovePropertyEvent.SET_SPEED));
 
+	}
+
+	@Override
+	public Extrable extra() {
+		return extra;
 	}
 
 }

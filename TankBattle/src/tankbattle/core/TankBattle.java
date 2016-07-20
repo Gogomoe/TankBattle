@@ -22,7 +22,9 @@ import tankbattle.core.position.move.MovePropertyEvent;
 import tankbattle.core.position.move.MovePropertyListener;
 import tankbattle.core.time.TimerGroup;
 
-public class TankBattle extends Extra {
+public class TankBattle implements Extrable {
+
+	private Extra extra = new Extra();
 
 	protected static TankBattle game;
 
@@ -82,6 +84,11 @@ public class TankBattle extends Extra {
 
 	public EntityGroup getEntityGroup() {
 		return entityGroup;
+	}
+
+	@Override
+	public Extrable extra() {
+		return extra;
 	}
 
 }

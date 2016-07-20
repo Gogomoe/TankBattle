@@ -9,7 +9,9 @@ import tankbattle.core.Extrable;
  *
  * @author Gogo
  */
-public class Event extends Extra implements Extrable {
+public class Event implements Extrable {
+
+	private Extra extra = new Extra();
 
 	protected boolean canceled;
 	protected boolean executed;
@@ -50,6 +52,11 @@ public class Event extends Extra implements Extrable {
 	public Event setCode(int code) {
 		this.code = code;
 		return this;
+	}
+
+	@Override
+	public Extrable extra() {
+		return extra;
 	}
 
 }
