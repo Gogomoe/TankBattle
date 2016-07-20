@@ -1,6 +1,8 @@
 package test;
 
+import tankbattle.core.Bullet;
 import tankbattle.core.Entity;
+import tankbattle.core.Tank;
 import tankbattle.core.TankBattle;
 import tankbattle.core.position.Direction;
 import tankbattle.core.time.TimeListener;
@@ -11,7 +13,19 @@ public class Test {
 
 	}
 
-	public static void moveExample() {
+	public static void attackTest() {
+		Tank t = new Tank();
+		t.setDEF(5);
+		t.attack();
+		TankBattle.getGame().getEntityGroup().getAll().forEach(e -> {
+			Bullet b = (Bullet) e;
+			b.damage(t);
+		});
+		System.out.println(t.getHP());
+		System.exit(0);
+	}
+
+	public static void moveTest() {
 		Entity e = new Entity();
 		e.setSpeed(10);
 		e.setTowards(Direction.NORTH);

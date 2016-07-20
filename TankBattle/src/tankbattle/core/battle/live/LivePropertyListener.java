@@ -7,7 +7,7 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 	final public static String LID = "TankBattle:LivePropertyListener";
 
 	final public static String KEY_HP = "Livable:HP";
-	final public static String KEY_DP = "Livable:DP";
+	final public static String KEY_DEF = "Livable:DP";
 	final public static String KEY_MAXHP = "Livable:MaxHP";
 	final public static String KEY_LIVE = "Livable:Live";
 
@@ -34,13 +34,13 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 		} else {
 			liver.put(KEY_MAXHP, event.getMaxHP());
 		}
-		if ((code & LivePropertyEvent.SET_DP) == 0) {
-			if (!liver.contains(KEY_DP)) {
-				liver.put(KEY_DP, 0);
+		if ((code & LivePropertyEvent.SET_DEF) == 0) {
+			if (!liver.contains(KEY_DEF)) {
+				liver.put(KEY_DEF, 0);
 			}
-			event.setDP(liver.getInt(KEY_DP));
+			event.setDEF(liver.getInt(KEY_DEF));
 		} else {
-			liver.put(KEY_DP, event.getDP());
+			liver.put(KEY_DEF, event.getDEF());
 		}
 		if ((code & LivePropertyEvent.SET_LIVE) == 0) {
 			if (!liver.contains(KEY_LIVE)) {

@@ -1,5 +1,9 @@
 package tankbattle.core;
 
+import tankbattle.core.attack.Assailable;
+import tankbattle.core.attack.BulletFactory;
+import tankbattle.core.attack.TankAttackEvent;
+
 /**
  * 表示坦克的类<br/>
  * 坦克具有生命，能发动攻击<br/>
@@ -8,6 +12,17 @@ package tankbattle.core;
  * @author Gogo
  *
  */
-public class Tank extends Entity {
+public class Tank extends Entity implements Assailable {
+
+	final public static String KEY_BULLET_FACTORY = "Tank:BulletFactory";
+
+	{
+		put(KEY_BULLET_FACTORY, new BulletFactory.EntityBulletFactory(this, new Bullet(this, 20)));
+	}
+
+	@Override
+	public void attack() {
+		TankBattle.getGame().getProcess().send(new TankAttackEvent(this));
+	}
 
 }

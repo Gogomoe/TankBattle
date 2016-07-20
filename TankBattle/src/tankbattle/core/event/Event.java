@@ -1,6 +1,7 @@
 package tankbattle.core.event;
 
-import tankbattle.core.interfaces.Extrable;
+import tankbattle.core.Extra;
+import tankbattle.core.Extrable;
 
 /**
  * 事件是事件驱动的核心<br/>
@@ -8,7 +9,7 @@ import tankbattle.core.interfaces.Extrable;
  *
  * @author Gogo
  */
-public class Event implements Extrable {
+public class Event extends Extra implements Extrable {
 
 	protected boolean canceled;
 	protected boolean executed;

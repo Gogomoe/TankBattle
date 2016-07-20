@@ -1,6 +1,7 @@
 package tankbattle.core.bullet;
 
 import tankbattle.core.Bullet;
+import tankbattle.core.attack.Assailable;
 
 /**
  * 东方中标准的小玉弹幕<br/>
@@ -12,5 +13,9 @@ import tankbattle.core.Bullet;
  *
  */
 public class Xiaoyu extends Bullet {
+
+	public Xiaoyu(Assailable attacker, int ATK) {
+		super(attacker, ATK);
+	}
 
 }

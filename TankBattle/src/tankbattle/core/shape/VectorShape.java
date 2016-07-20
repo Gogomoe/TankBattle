@@ -26,8 +26,7 @@ public class VectorShape extends Shape {
 			throw new NullPointerException("contains对象为空");
 		}
 
-		ShapeComparator<T, S> comp = ComparatorFactory.factory.get((Class<T>) this.getClass(),
-				(Class<S>) s.getClass());
+		ShapeComparator<T, S> comp = ComparatorFactory.factory.get((Class<T>) this.getClass(), (Class<S>) s.getClass());
 		if (comp != null) {
 			return comp.contains((T) this, (S) s);
 		}
@@ -46,8 +45,7 @@ public class VectorShape extends Shape {
 		if (s == null) {
 			throw new NullPointerException("contacts对象为空");
 		}
-		ShapeComparator<T, S> comp = ComparatorFactory.factory.get((Class<T>) this.getClass(),
-				(Class<S>) s.getClass());
+		ShapeComparator<T, S> comp = ComparatorFactory.factory.get((Class<T>) this.getClass(), (Class<S>) s.getClass());
 		if (comp != null) {
 			return comp.contacts((T) this, (S) s);
 		}

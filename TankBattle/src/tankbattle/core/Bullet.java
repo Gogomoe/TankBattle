@@ -1,12 +1,16 @@
 package tankbattle.core;
 
-/**
- * 表示炮弹的类<br/>
- * 炮弹具有杀伤力，可以对有生命的实体造成伤害<br/>
- * 
- * @author Gogo
- *
- */
-public class Bullet extends Entity {
+import tankbattle.core.attack.Assailable;
+import tankbattle.core.attack.Damagable;
+
+public class Bullet extends Entity implements Damagable {
+
+	public Bullet(Assailable attacker, int ATK) {
+		this.setAttacker(attacker).setATK(ATK);
+	}
+
+	public Bullet copy() {
+		return (Bullet) new Bullet(this.getAttacker(), this.getATK());
+	}
 
 }

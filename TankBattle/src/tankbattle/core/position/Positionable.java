@@ -1,7 +1,7 @@
 package tankbattle.core.position;
 
+import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
-import tankbattle.core.interfaces.Extrable;
 
 /**
  * 实现本接口表示该对象有位置<br/>
@@ -22,7 +22,8 @@ public interface Positionable extends Extrable {
 	}
 
 	default public Positionable setPosition(Point p) {
-		TankBattle.getGame().getProcess().send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_POSTION).setPosition(p));
+		TankBattle.getGame().getProcess()
+				.send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_POSTION).setPosition(p));
 		return this;
 	}
 
@@ -31,7 +32,8 @@ public interface Positionable extends Extrable {
 	}
 
 	default public Positionable setTowards(Direction d) {
-		TankBattle.getGame().getProcess().send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_TOWARDS).setTowards(d));
+		TankBattle.getGame().getProcess()
+				.send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_TOWARDS).setTowards(d));
 		return this;
 	}
 
@@ -40,7 +42,8 @@ public interface Positionable extends Extrable {
 	}
 
 	default public Positionable setLayer(int layer) {
-		TankBattle.getGame().getProcess().send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_LAYER).setLayer(layer));
+		TankBattle.getGame().getProcess()
+				.send(new PositionPropertyEvent(this, PositionPropertyEvent.SET_LAYER).setLayer(layer));
 		return this;
 	}
 

@@ -1,8 +1,8 @@
 package tankbattle.core.battle.live;
 
+import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.LivePropertyEvent;
-import tankbattle.core.interfaces.Extrable;
 
 /**
  * 表示对象可生存（有生命值）<br/>
@@ -25,8 +25,8 @@ public interface Livable extends Extrable {
 		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getMaxHP();
 	}
 
-	default public int getDP() {
-		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getDP();
+	default public int getDEF() {
+		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getDEF();
 	}
 
 	default public Livable setHP(int HP) {
@@ -34,14 +34,21 @@ public interface Livable extends Extrable {
 		return this;
 	}
 
-	default public Livable setLive(boolean live) {
-		TankBattle.getGame().getProcess().send(new LivePropertyEvent(this).setLive(live).setCode(LivePropertyEvent.SET_LIVE));
+	default public Livable setDEF(int DEF) {
+		TankBattle.getGame().getProcess()
+				.send(new LivePropertyEvent(this).setDEF(DEF).setCode(LivePropertyEvent.SET_DEF));
 		return this;
 	}
 
-	default public Livable set(int HP, int maxHP, boolean live, int DP) {
-		TankBattle.getGame().getProcess().send(new LivePropertyEvent(this).setHP(HP).setDP(DP).setLive(live).setMaxHP(maxHP)
-				.setCode(LivePropertyEvent.SET_HP + LivePropertyEvent.SET_MAXHP + LivePropertyEvent.SET_DP + LivePropertyEvent.SET_LIVE));
+	default public Livable setMaxHP(int MaxHP) {
+		TankBattle.getGame().getProcess()
+				.send(new LivePropertyEvent(this).setMaxHP(MaxHP).setCode(LivePropertyEvent.SET_MAXHP));
+		return this;
+	}
+
+	default public Livable setLive(boolean live) {
+		TankBattle.getGame().getProcess()
+				.send(new LivePropertyEvent(this).setLive(live).setCode(LivePropertyEvent.SET_LIVE));
 		return this;
 	}
 

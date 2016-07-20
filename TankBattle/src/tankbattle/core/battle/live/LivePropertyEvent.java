@@ -6,19 +6,19 @@ public class LivePropertyEvent extends Event {
 
 	final public static int GET_HP = 0;
 	final public static int GET_MAXHP = 0;
-	final public static int GET_DP = 0;
+	final public static int GET_DEF = 0;
 	final public static int GET_LIVE = 0;
 
 	final public static int SET_HP = Integer.valueOf("0001", 2);
 	final public static int SET_MAXHP = Integer.valueOf("0010", 2);
-	final public static int SET_DP = Integer.valueOf("0100", 2);
+	final public static int SET_DEF = Integer.valueOf("0100", 2);
 	final public static int SET_LIVE = Integer.valueOf("1000", 2);
 
 	private Livable liver;
 
 	private boolean live;
 
-	private int HP, MaxHP, DP;
+	private int HP, MaxHP, DEF;
 
 	public LivePropertyEvent(Livable liver) {
 		super();
@@ -57,12 +57,12 @@ public class LivePropertyEvent extends Event {
 		return this;
 	}
 
-	public int getDP() {
-		return DP;
+	public int getDEF() {
+		return DEF;
 	}
 
-	public LivePropertyEvent setDP(int dP) {
-		DP = dP;
+	public LivePropertyEvent setDEF(int DEF) {
+		this.DEF = DEF;
 		return this;
 	}
 
