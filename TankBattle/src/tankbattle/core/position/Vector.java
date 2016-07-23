@@ -66,29 +66,12 @@ public class Vector {
 		return new Vector(accuracy * rint(x / accuracy), accuracy * rint(y / accuracy), accuracy);
 	}
 
-	public Vector set(Vector v) {
-		this.x = v.x;
-		this.y = v.y;
-		this.accuracy = v.accuracy;
-		return this;
-	}
-
 	public double getX() {
 		return x;
 	}
 
-	public Vector setX(int x) {
-		this.x = x;
-		return this;
-	}
-
 	public double getY() {
 		return y;
-	}
-
-	public Vector setY(int y) {
-		this.y = y;
-		return this;
 	}
 
 	@Override
@@ -97,7 +80,17 @@ public class Vector {
 	}
 
 	@Override
+	public int hashCode() {
+		return (int) (31 * Math.round(x) + 31 * Math.round(y));
+	}
+
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		if (obj instanceof Vector) {
 			Vector v = (Vector) obj;
 			double vx = v.getX(), vy = v.getY(), ha = accuracy / 2;
@@ -110,8 +103,4 @@ public class Vector {
 		return accuracy;
 	}
 
-	public Vector setAccuracy(double accuracy) {
-		this.accuracy = accuracy;
-		return this;
-	}
 }

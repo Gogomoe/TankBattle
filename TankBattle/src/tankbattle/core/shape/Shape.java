@@ -1,5 +1,6 @@
 package tankbattle.core.shape;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import tankbattle.core.position.Point;
@@ -12,11 +13,11 @@ public abstract class Shape {
 	abstract public Set<Point> points();
 
 	public Set<Point> rpoints() {
-		Set<Point> set = points();
-		set.forEach(p -> {
-			p.set(p.rval());
+		Set<Point> ps = new HashSet<>();
+		points().forEach(p -> {
+			ps.add(p.rval());
 		});
-		return set;
+		return ps;
 	}
 
 	public VectorShape toVectorShape(Vector v) {

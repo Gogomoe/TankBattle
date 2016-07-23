@@ -25,7 +25,7 @@ public class PositionPropertyListener implements Listener<PositionPropertyEvent>
 		if ((code & PositionPropertyEvent.SET_POSTION) == 0) {
 			event.setPosition(p.copy());
 		} else {
-			p.set(event.getPosition());
+			poser.put(KEY_POS, event.getPosition());
 		}
 		if ((code & PositionPropertyEvent.SET_TOWARDS) == 0) {
 			event.setTowards(poser.getObj(KEY_TOWARDS, Direction.class));

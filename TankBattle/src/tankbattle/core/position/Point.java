@@ -59,29 +59,12 @@ public class Point {
 		return new Point(accuracy * rint(x / accuracy), accuracy * rint(y / accuracy), accuracy);
 	}
 
-	public Point set(Point p) {
-		this.x = p.x;
-		this.y = p.y;
-		this.accuracy = p.accuracy;
-		return this;
-	}
-
 	public double getX() {
 		return x;
 	}
 
-	public Point setX(double x) {
-		this.x = x;
-		return this;
-	}
-
 	public double getY() {
 		return y;
-	}
-
-	public Point setY(double y) {
-		this.y = y;
-		return this;
 	}
 
 	@Override
@@ -90,13 +73,23 @@ public class Point {
 	}
 
 	@Override
+	public int hashCode() {
+		return (int) (31 * Math.round(x) + 31 * Math.round(y));
+	}
+
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		if (obj instanceof Point) {
-			Point v = (Point) obj;
-			double vx = v.getX(), vy = v.getY(), ha = accuracy / 2;
+			Point p = (Point) obj;
+			double vx = p.getX(), vy = p.getY(), ha = accuracy / 2;
 			return (vx <= x + ha && vx >= x - ha && vy <= y + ha && vy >= y - ha);
 		}
-		return false;
+		return super.equals(obj);
 	}
 
 	public double accuracy() {

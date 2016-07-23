@@ -1,8 +1,8 @@
 package tankbattle.core.shape;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import tankbattle.core.others.SetUtils;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
@@ -17,7 +17,7 @@ public class VectorShape extends Shape {
 	}
 
 	public boolean contains(Point p) {
-		return SetUtils.contains(shape.points(), p.subtract(vector));
+		return shape.points().contains(p.subtract(vector));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -31,8 +31,9 @@ public class VectorShape extends Shape {
 			return comp.contains((T) this, (S) s);
 		}
 		Set<Point> ps = points();
+
 		for (Point p : s.points()) {
-			if (!SetUtils.contains(ps, p)) {
+			if (!ps.contains(p)) {
 				return false;
 			}
 		}
@@ -50,8 +51,9 @@ public class VectorShape extends Shape {
 			return comp.contacts((T) this, (S) s);
 		}
 		Set<Point> ps = points();
+
 		for (Point p : s.points()) {
-			if (SetUtils.contains(ps, p)) {
+			if (ps.contains(p)) {
 				return true;
 			}
 		}
@@ -61,9 +63,9 @@ public class VectorShape extends Shape {
 
 	@Override
 	public Set<Point> points() {
-		Set<Point> ps = shape.points();
-		ps.forEach(p -> {
-			p.set(p.add(vector));
+		Set<Point> ps = new HashSet<>();
+		shape.points().forEach(p -> {
+			ps.add(p.add(vector));
 		});
 		return ps;
 	}

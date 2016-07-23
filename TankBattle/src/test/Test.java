@@ -5,12 +5,21 @@ import tankbattle.core.Entity;
 import tankbattle.core.Tank;
 import tankbattle.core.TankBattle;
 import tankbattle.core.position.Direction;
+import tankbattle.core.position.Vector;
+import tankbattle.core.shape.Circle;
+import tankbattle.core.shape.VCircle;
 import tankbattle.core.time.TimeListener;
 
 public class Test {
 
 	public static void main(String[] args) {
+		shapeTest();
+	}
 
+	public static void shapeTest() {
+		VCircle c1 = new VCircle(new Circle(5), new Vector(5, 5));
+		VCircle c2 = new VCircle(new Circle(5), new Vector(-5, 5));
+		System.out.println(c1.contacts(c2));
 	}
 
 	public static void attackTest() {
