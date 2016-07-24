@@ -30,12 +30,7 @@ public class MoveListener implements Listener<MoveEvent> {
 				return;
 			}
 			Vector v = new Vector(event.getMover().towards(), event.getMover().speed() / TankBattle.getGame().getFPS());
-			if (event.getVector() != null) {
-				event.setVector(v);
-			} else {
-				event.setVector(v);
-			}
-
+			event.setVector(v);
 		}
 
 	}
@@ -53,6 +48,7 @@ public class MoveListener implements Listener<MoveEvent> {
 		}
 		Point p = event.getMover().position();
 		event.getMover().setPosition(p.add(event.getVector()));
+		event.setExecuted(true);
 	}
 
 }

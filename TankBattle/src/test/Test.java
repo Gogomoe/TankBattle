@@ -13,7 +13,7 @@ import tankbattle.core.time.TimeListener;
 public class Test {
 
 	public static void main(String[] args) {
-		shapeTest();
+		
 	}
 
 	public static void shapeTest() {

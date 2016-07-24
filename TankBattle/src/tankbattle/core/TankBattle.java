@@ -27,6 +27,8 @@ import tankbattle.core.position.move.MoveEvent;
 import tankbattle.core.position.move.MoveListener;
 import tankbattle.core.position.move.MovePropertyEvent;
 import tankbattle.core.position.move.MovePropertyListener;
+import tankbattle.core.shape.ShapePropertyEvent;
+import tankbattle.core.shape.ShapePropertyListener;
 import tankbattle.core.time.TimerGroup;
 
 public class TankBattle implements Extrable {
@@ -59,6 +61,7 @@ public class TankBattle implements Extrable {
 
 		teamGroup.add(Team.system);
 		Team.system.add(Player.system);
+		Player.system.setTeam(Team.system);
 
 		p.addListener(PlayerPropertyListener.LID, Listener.EXECUTE, PlayerPropertyEvent.class,
 				new PlayerPropertyListener());
@@ -67,6 +70,8 @@ public class TankBattle implements Extrable {
 		p.addListener(LivePropertyListener.LID, Listener.EXECUTE, LivePropertyEvent.class, new LivePropertyListener());
 		p.addListener(PositionPropertyListener.LID, Listener.EXECUTE, PositionPropertyEvent.class,
 				new PositionPropertyListener());
+		p.addListener(ShapePropertyListener.LID, Listener.EXECUTE, ShapePropertyEvent.class,
+				new ShapePropertyListener());
 
 		p.addListener(MovePropertyListener.LID, Listener.EXECUTE, MovePropertyEvent.class, new MovePropertyListener());
 		p.addListener(MoveListener.LID, Listener.EXECUTE, MoveEvent.class, new MoveListener());

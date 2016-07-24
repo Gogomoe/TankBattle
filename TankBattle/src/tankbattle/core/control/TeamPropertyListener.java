@@ -19,6 +19,7 @@ public class TeamPropertyListener implements Listener<TeamPropertyEvent> {
 			event.getTeam().add(p);
 			p.setTeam(event.getTeam());
 		}
+		event.setExecuted(true);
 	}
 
 }

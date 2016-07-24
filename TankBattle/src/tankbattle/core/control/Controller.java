@@ -1,10 +1,15 @@
 package tankbattle.core.control;
 
 import tankbattle.core.Extrable;
+import tankbattle.core.TankBattle;
 
 public interface Controller extends Extrable {
 
-	public Team team();
+	default public Team team() {
+		return player().getTeam();
+	}
 
-	public Player player();
+	default public Player player() {
+		return TankBattle.getGame().getProcess().send(new PlayerPropertyEvent(this)).getPlayer();
+	}
 }

@@ -21,6 +21,7 @@ public class PlayerPropertyListener implements Listener<PlayerPropertyEvent> {
 		} else {
 			c.put(KEY_PLAYER, event.getPlayer() == null ? Player.system : event.getPlayer());
 		}
+		event.setExecuted(true);
 	}
 
 }

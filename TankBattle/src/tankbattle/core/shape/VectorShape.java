@@ -74,18 +74,8 @@ public class VectorShape extends Shape {
 		return shape;
 	}
 
-	public VectorShape setShape(Shape shape) {
-		this.shape = shape;
-		return this;
-	}
-
 	public Vector getVector() {
 		return vector;
-	}
-
-	public VectorShape setVector(Vector vector) {
-		this.vector = vector;
-		return this;
 	}
 
 }
