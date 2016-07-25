@@ -2,8 +2,13 @@ package tankbattle.core.shape;
 
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
+import tankbattle.core.shape.ShapeComparator.RectComparator;
 
 public class VRect extends VectorShape {
+
+	static {
+		ComparatorFactory.factory.add(VRect.class, VRect.class, new RectComparator());
+	}
 
 	private Rect rect;
 

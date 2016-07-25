@@ -10,7 +10,7 @@ import tankbattle.core.others.SetUtils;
 
 public class Group<T> {
 
-	private Set<T> set = Collections.synchronizedSet(new HashSet<>());
+	protected Set<T> set = Collections.synchronizedSet(new HashSet<>());
 
 	public Set<T> getAll() {
 		return new HashSet<>(set);

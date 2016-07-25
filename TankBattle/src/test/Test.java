@@ -13,7 +13,7 @@ import tankbattle.core.time.TimeListener;
 public class Test {
 
 	public static void main(String[] args) {
-		
+		moveTest();
 	}
 
 	public static void shapeTest() {
@@ -37,6 +37,7 @@ public class Test {
 	public static void moveTest() {
 		Entity e = new Entity();
 		e.setSpeed(10);
+		e.setMoving(true);
 		e.setTowards(Direction.NORTH);
 		long start = System.currentTimeMillis();
 		TankBattle.getGame().getEntityGroup().add(e);

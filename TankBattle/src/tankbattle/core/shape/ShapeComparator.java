@@ -4,6 +4,7 @@ import static java.lang.Math.min;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
+import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
 public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
@@ -11,6 +12,42 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 	public boolean contains(T s1, S s2);
 
 	public boolean contacts(T s1, S s2);
+
+	public static class RectComparator implements ShapeComparator<VRect, VRect> {
+
+		@Override
+		public boolean contains(VRect s1, VRect s2) {
+			double hw = s2.getRect().getWidth() / 2, hh = s2.getRect().getHeight() / 2;
+			double x = s2.vector.getX(), y = s2.getVector().getY();
+			return s1.contains(new Point(x + hw, y + hh)) && s1.contains(new Point(x + hw, y - hh))
+					&& s1.contains(new Point(x - hw, y + hh)) && s1.contains(new Point(x - hw, y - hh));
+		}
+
+		@Override
+		public boolean contacts(VRect s1, VRect s2) {
+			double hw = s2.getRect().getWidth() / 2, hh = s2.getRect().getHeight() / 2;
+			double x = s2.vector.getX(), y = s2.getVector().getY();
+			return s1.contains(new Point(x + hw, y + hh)) || s1.contains(new Point(x + hw, y - hh))
+					|| s1.contains(new Point(x - hw, y + hh)) || s1.contains(new Point(x - hw, y - hh));
+		}
+
+	}
+
+	public static class CircleComparator implements ShapeComparator<VCircle, VCircle> {
+
+		@Override
+		public boolean contains(VCircle s1, VCircle s2) {
+			Vector d = s2.getVector().subtract(s1.getVector());
+			return d.length() + s2.getCircle().getRadius() <= s1.getCircle().getRadius();
+		}
+
+		@Override
+		public boolean contacts(VCircle s1, VCircle s2) {
+			Vector d = s2.getVector().subtract(s1.getVector());
+			return d.length() <= s2.getCircle().getRadius() + s1.getCircle().getRadius();
+		}
+
+	}
 
 	public static class CircleRectComparator implements ShapeComparator<VCircle, VRect> {
 

@@ -12,4 +12,8 @@ public interface Listener<T extends Event> {
 	final public static int AFTER_EXECUTE = 20000;
 
 	public void listen(T event);
+
+	default void init(EventProcess process) {
+
+	}
 }

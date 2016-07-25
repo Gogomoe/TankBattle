@@ -74,6 +74,7 @@ public class EventProcess implements ListenerGroup {
 			throw new NullPointerException("addListener传入null");
 		}
 		listeners.add(new ListenerItem<>(name, priority, clazz, listener));
+		listener.init(this);
 		return name;
 	}
 

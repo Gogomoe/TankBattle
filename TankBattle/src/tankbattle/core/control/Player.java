@@ -4,7 +4,7 @@ import tankbattle.core.TankBattle;
 
 public class Player implements Named {
 
-	final public static Player system = new Player("System");
+	final public static Player system = new Player("System", Team.system);
 
 	private String name;
 

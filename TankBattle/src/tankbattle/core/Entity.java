@@ -7,6 +7,7 @@ import tankbattle.core.control.Player;
 import tankbattle.core.control.PlayerPropertyEvent;
 import tankbattle.core.position.Direction;
 import tankbattle.core.position.PositionPropertyEvent;
+import tankbattle.core.position.move.EntityMoveEvent;
 import tankbattle.core.position.move.Movable;
 import tankbattle.core.position.move.MovePropertyEvent;
 import tankbattle.core.shape.Rect;
@@ -48,6 +49,11 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller 
 	@Override
 	public Extrable extra() {
 		return extra;
+	}
+
+	@Override
+	public void move() {
+		TankBattle.getGame().getProcess().send(new EntityMoveEvent(this));
 	}
 
 }

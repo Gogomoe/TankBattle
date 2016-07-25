@@ -1,6 +1,7 @@
 package tankbattle.core.shape;
 
 import tankbattle.core.shape.ShapeComparator.RectCircleComparator;
+import tankbattle.core.shape.ShapeComparator.CircleComparator;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 import tankbattle.core.shape.ShapeComparator.CircleRectComparator;
@@ -8,6 +9,7 @@ import tankbattle.core.shape.ShapeComparator.CircleRectComparator;
 public class VCircle extends VectorShape {
 
 	static {
+		ComparatorFactory.factory.add(VCircle.class, VCircle.class, new CircleComparator());
 		ComparatorFactory.factory.add(VCircle.class, VRect.class, new CircleRectComparator());
 		ComparatorFactory.factory.add(VRect.class, VCircle.class, new RectCircleComparator());
 	}

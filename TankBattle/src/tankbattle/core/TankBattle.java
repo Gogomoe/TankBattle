@@ -23,6 +23,8 @@ import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
+import tankbattle.core.position.contact.ContactListener;
+import tankbattle.core.position.move.EntityMoveEvent;
 import tankbattle.core.position.move.MoveEvent;
 import tankbattle.core.position.move.MoveListener;
 import tankbattle.core.position.move.MovePropertyEvent;
@@ -39,6 +41,7 @@ public class TankBattle implements Extrable {
 
 	static {
 		game = new TankBattle();
+		game.init();
 	}
 
 	public static TankBattle getGame() {
@@ -49,13 +52,14 @@ public class TankBattle implements Extrable {
 
 	protected TimerGroup timer = new TimerGroup(1);
 
-	protected Group<Entity> entityGroup = new Group<Entity>();
+	protected EntityGroup entityGroup = new EntityGroup();
 
 	protected MapGroup<Team> teamGroup = new MapGroup<>();
 
 	protected double fps = 60.0;
 
-	public TankBattle() {
+	public void init() {
+
 		EventProcess p = new EventProcess();
 		processes.put("TankBattle", p);
 
@@ -75,15 +79,13 @@ public class TankBattle implements Extrable {
 
 		p.addListener(MovePropertyListener.LID, Listener.EXECUTE, MovePropertyEvent.class, new MovePropertyListener());
 		p.addListener(MoveListener.LID, Listener.EXECUTE, MoveEvent.class, new MoveListener());
-		p.addListener(MoveListener.MoveSpeedSetter.LID, Listener.EARLY, MoveEvent.class,
-				new MoveListener.MoveSpeedSetter());
+		p.addListener(ContactListener.LID, Listener.AFTER_EXECUTE, EntityMoveEvent.class, new ContactListener());
 
 		p.addListener(DamagePropertyListener.LID, Listener.EXECUTE, DamagePropertyEvent.class,
 				new DamagePropertyListener());
 		p.addListener(DamageListener.LID, Listener.EXECUTE, DamageEvent.class, new DamageListener());
 		p.addListener(TankAttackListener.LID, Listener.EXECUTE, TankAttackEvent.class, new TankAttackListener());
 
-		timer.addListener(MoveListener.MoveTimer.LID, Listener.EXECUTE, new MoveListener.MoveTimer((1000 / fps)));
 		timer.createThread();
 		timer.start();
 	}
@@ -104,7 +106,7 @@ public class TankBattle implements Extrable {
 		return timer;
 	}
 
-	public Group<Entity> getEntityGroup() {
+	public EntityGroup getEntityGroup() {
 		return entityGroup;
 	}
 
