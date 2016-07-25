@@ -1,4 +1,4 @@
-package tankbattle.core.position.move;
+package tankbattle.core.move;
 
 import tankbattle.core.TankBattle;
 import tankbattle.core.event.EventProcess;

@@ -1,4 +1,4 @@
-package tankbattle.core.position.contact;
+package tankbattle.core.move.contact;
 
 import java.util.Set;
 
@@ -6,7 +6,7 @@ import tankbattle.core.Entity;
 import tankbattle.core.TankBattle;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
-import tankbattle.core.position.move.EntityMoveEvent;
+import tankbattle.core.move.EntityMoveEvent;
 
 public class ContactListener implements Listener<EntityMoveEvent> {
 

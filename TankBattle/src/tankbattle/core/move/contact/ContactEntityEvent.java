@@ -1,4 +1,4 @@
-package tankbattle.core.position.contact;
+package tankbattle.core.move.contact;
 
 import tankbattle.core.Entity;
 import tankbattle.core.event.Event;

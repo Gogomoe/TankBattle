@@ -15,7 +15,7 @@ abstract public class Direction {
 
 		@Override
 		public Vector vector() {
-			return new Vector(0, 1);
+			return new Vector(0, -1);
 		}
 
 	}
@@ -27,7 +27,7 @@ abstract public class Direction {
 
 		@Override
 		public Vector vector() {
-			return new Vector(0, -1);
+			return new Vector(0, 1);
 		}
 
 	}
@@ -39,7 +39,7 @@ abstract public class Direction {
 
 		@Override
 		public Vector vector() {
-			return new Vector(-1, 0);
+			return new Vector(1, 0);
 		}
 
 	}
@@ -51,7 +51,7 @@ abstract public class Direction {
 
 		@Override
 		public Vector vector() {
-			return new Vector(1, 0);
+			return new Vector(-1, 0);
 		}
 
 	}
