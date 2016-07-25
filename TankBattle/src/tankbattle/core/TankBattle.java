@@ -22,10 +22,13 @@ import tankbattle.core.control.TeamPropertyListener;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.EntityMoveEvent;
+import tankbattle.core.move.EntityMoveListener;
 import tankbattle.core.move.MoveEvent;
 import tankbattle.core.move.MoveListener;
 import tankbattle.core.move.MovePropertyEvent;
 import tankbattle.core.move.MovePropertyListener;
+import tankbattle.core.move.collide.BaseCollideListener;
+import tankbattle.core.move.collide.CollideEvent;
 import tankbattle.core.move.contact.ContactListener;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
@@ -79,7 +82,10 @@ public class TankBattle implements Extrable {
 
 		p.addListener(MovePropertyListener.LID, Listener.EXECUTE, MovePropertyEvent.class, new MovePropertyListener());
 		p.addListener(MoveListener.LID, Listener.EXECUTE, MoveEvent.class, new MoveListener());
+		p.addListener(EntityMoveListener.ConllidListener.LID, 8000, EntityMoveEvent.class,
+				new EntityMoveListener.ConllidListener());
 		p.addListener(ContactListener.LID, Listener.AFTER_EXECUTE, EntityMoveEvent.class, new ContactListener());
+		p.addListener(BaseCollideListener.LID, Listener.EXECUTE, CollideEvent.class, new BaseCollideListener());
 
 		p.addListener(DamagePropertyListener.LID, Listener.EXECUTE, DamagePropertyEvent.class,
 				new DamagePropertyListener());

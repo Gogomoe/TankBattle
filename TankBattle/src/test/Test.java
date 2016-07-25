@@ -26,17 +26,18 @@ public class Test {
 		e.setMoving(true);
 
 		Entity e2 = new Entity();
+		e2.setLayer(-1);
 		e2.setPosition(new Point(0, 100));
-		
+
 		TankBattle.getGame().getEntityGroup().add(e);
 		TankBattle.getGame().getEntityGroup().add(e2);
-		
+
 		long start = System.currentTimeMillis();
-		
+
 		TankBattle.getGame().getTimer().addListener(new TimeListener(1000, ev -> {
 			System.out.println(e.position() + "   " + (System.currentTimeMillis() - start));
 		}));
-		
+
 		TankBattle.getGame().getProcess().addListener(ContactEntityEvent.class, l -> {
 			System.out.println("contact");
 		});
