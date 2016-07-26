@@ -1,8 +1,9 @@
 package tankbattle.core;
 
-import tankbattle.core.attack.Assailable;
-import tankbattle.core.attack.BulletFactory;
-import tankbattle.core.attack.TankAttackEvent;
+import tankbattle.core.battle.attack.Assailable;
+import tankbattle.core.battle.tank.BulletFactory;
+import tankbattle.core.battle.tank.TankAttackEvent;
+import tankbattle.core.move.TankMoveEvent;
 
 /**
  * 表示坦克的类<br/>
@@ -25,4 +26,8 @@ public class Tank extends Entity implements Assailable {
 		TankBattle.getGame().getProcess().send(new TankAttackEvent(this));
 	}
 
+	@Override
+	public void move() {
+		TankBattle.getGame().getProcess().send(new TankMoveEvent(this));
+	}
 }

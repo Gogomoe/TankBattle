@@ -1,4 +1,4 @@
-package tankbattle.core.attack;
+package tankbattle.core.battle.tank;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +25,7 @@ public interface BulletFactory {
 		public Set<Bullet> createBullet() {
 			Set<Bullet> set = new HashSet<>();
 			Bullet b = bullet.copy();
+			b.setPlayer(entity.player());
 			b.setTowards(entity.towards());
 			set.add(b);
 			return set;

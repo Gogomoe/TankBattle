@@ -1,7 +1,7 @@
 package tankbattle.core.bullet;
 
 import tankbattle.core.Bullet;
-import tankbattle.core.attack.Assailable;
+import tankbattle.core.battle.attack.Assailable;
 
 /**
  * 东方中标准的小玉弹幕<br/>

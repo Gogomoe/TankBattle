@@ -1,4 +1,4 @@
-package tankbattle.core.attack;
+package tankbattle.core.battle.tank;
 
 import tankbattle.core.Tank;
 import tankbattle.core.TankBattle;
@@ -15,6 +15,7 @@ public class TankAttackListener implements Listener<TankAttackEvent> {
 		}
 		event.getAttacker().getObj(Tank.KEY_BULLET_FACTORY, BulletFactory.class).createBullet().forEach(b -> {
 			TankBattle.getGame().getEntityGroup().add(b);
+			b.setMoving(true);
 		});
 		event.setExecuted(true);
 	}

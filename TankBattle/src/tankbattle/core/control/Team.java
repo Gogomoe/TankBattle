@@ -66,4 +66,9 @@ public class Team implements Named {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Team [" + name + "]";
+	}
+
 }

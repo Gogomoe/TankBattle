@@ -69,4 +69,9 @@ public class Player implements Named {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", team=" + team + "]";
+	}
+
 }

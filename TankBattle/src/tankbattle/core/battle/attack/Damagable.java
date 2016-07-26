@@ -1,4 +1,4 @@
-package tankbattle.core.attack;
+package tankbattle.core.battle.attack;
 
 import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;

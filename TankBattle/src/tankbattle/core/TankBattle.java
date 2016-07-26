@@ -5,14 +5,17 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import tankbattle.core.Group.MapGroup;
-import tankbattle.core.attack.DamageEvent;
-import tankbattle.core.attack.DamageListener;
-import tankbattle.core.attack.DamagePropertyEvent;
-import tankbattle.core.attack.DamagePropertyListener;
-import tankbattle.core.attack.TankAttackEvent;
-import tankbattle.core.attack.TankAttackListener;
+import tankbattle.core.battle.attack.DamageEvent;
+import tankbattle.core.battle.attack.DamageListener;
+import tankbattle.core.battle.attack.DamagePropertyEvent;
+import tankbattle.core.battle.attack.DamagePropertyListener;
+import tankbattle.core.battle.bullet.BulletDamageEvent;
+import tankbattle.core.battle.bullet.BulletDamageListener;
+import tankbattle.core.battle.bullet.BulletHitListener;
 import tankbattle.core.battle.live.LivePropertyEvent;
 import tankbattle.core.battle.live.LivePropertyListener;
+import tankbattle.core.battle.tank.TankAttackEvent;
+import tankbattle.core.battle.tank.TankAttackListener;
 import tankbattle.core.control.Player;
 import tankbattle.core.control.PlayerPropertyEvent;
 import tankbattle.core.control.PlayerPropertyListener;
@@ -29,6 +32,7 @@ import tankbattle.core.move.MovePropertyEvent;
 import tankbattle.core.move.MovePropertyListener;
 import tankbattle.core.move.collide.BaseCollideListener;
 import tankbattle.core.move.collide.CollideEvent;
+import tankbattle.core.move.contact.BulletContactEvent;
 import tankbattle.core.move.contact.ContactListener;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
@@ -91,6 +95,9 @@ public class TankBattle implements Extrable {
 				new DamagePropertyListener());
 		p.addListener(DamageListener.LID, Listener.EXECUTE, DamageEvent.class, new DamageListener());
 		p.addListener(TankAttackListener.LID, Listener.EXECUTE, TankAttackEvent.class, new TankAttackListener());
+		p.addListener(BulletHitListener.LID, Listener.NORMAL, BulletContactEvent.class, new BulletHitListener());
+		p.addListener(BulletDamageListener.LID, Listener.AFTER_EXECUTE, BulletDamageEvent.class,
+				new BulletDamageListener());
 
 		timer.createThread();
 		timer.start();
