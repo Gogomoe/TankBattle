@@ -1,8 +1,8 @@
 package tankbattle.core.battle.live;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.LivePropertyEvent;
+import tankbattle.core.others.Extrable;
 
 /**
  * 表示对象可生存（有生命值）<br/>

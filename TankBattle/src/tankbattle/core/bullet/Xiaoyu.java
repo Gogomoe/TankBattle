@@ -1,6 +1,5 @@
 package tankbattle.core.bullet;
 
-import tankbattle.core.Bullet;
 import tankbattle.core.battle.attack.Assailable;
 
 /**

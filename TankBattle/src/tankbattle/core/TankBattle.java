@@ -1,10 +1,9 @@
 package tankbattle.core;
 
 import java.util.Collections;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
-import tankbattle.core.Group.MapGroup;
 import tankbattle.core.battle.attack.DamageEvent;
 import tankbattle.core.battle.attack.DamageListener;
 import tankbattle.core.battle.attack.DamagePropertyEvent;
@@ -22,6 +21,10 @@ import tankbattle.core.control.PlayerPropertyListener;
 import tankbattle.core.control.Team;
 import tankbattle.core.control.TeamPropertyEvent;
 import tankbattle.core.control.TeamPropertyListener;
+import tankbattle.core.entity.EntityGroup;
+import tankbattle.core.entity.EntityGroupEvent;
+import tankbattle.core.entity.EntityGroupListener;
+import tankbattle.core.entity.EntityNodeListener;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.EntityMoveEvent;
@@ -34,11 +37,16 @@ import tankbattle.core.move.collide.BaseCollideListener;
 import tankbattle.core.move.collide.CollideEvent;
 import tankbattle.core.move.contact.BulletContactEvent;
 import tankbattle.core.move.contact.ContactListener;
+import tankbattle.core.others.Extra;
+import tankbattle.core.others.Extrable;
+import tankbattle.core.others.Group.MapGroup;
+import tankbattle.core.paint.Paintable;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
 import tankbattle.core.shape.ShapePropertyEvent;
 import tankbattle.core.shape.ShapePropertyListener;
 import tankbattle.core.time.TimerGroup;
+import tankbattle.core.view.PaintNode;
 
 public class TankBattle implements Extrable {
 
@@ -55,13 +63,15 @@ public class TankBattle implements Extrable {
 		return game;
 	}
 
-	protected Map<String, EventProcess> processes = Collections.synchronizedMap(new Hashtable<>());
+	protected Map<String, EventProcess> processes = Collections.synchronizedMap(new HashMap<>());
 
 	protected TimerGroup timer = new TimerGroup(1);
 
 	protected EntityGroup entityGroup = new EntityGroup();
 
 	protected MapGroup<Team> teamGroup = new MapGroup<>();
+
+	protected Map<Paintable, PaintNode> paints = Collections.synchronizedMap(new HashMap<Paintable, PaintNode>());
 
 	protected double fps = 60.0;
 
@@ -77,6 +87,9 @@ public class TankBattle implements Extrable {
 		p.addListener(PlayerPropertyListener.LID, Listener.EXECUTE, PlayerPropertyEvent.class,
 				new PlayerPropertyListener());
 		p.addListener(TeamPropertyListener.LID, Listener.EXECUTE, TeamPropertyEvent.class, new TeamPropertyListener());
+
+		p.addListener(EntityGroupListener.LID, Listener.EXECUTE, EntityGroupEvent.class, new EntityGroupListener());
+		p.addListener(EntityNodeListener.LID, Listener.AFTER_EXECUTE, EntityGroupEvent.class, new EntityNodeListener());
 
 		p.addListener(LivePropertyListener.LID, Listener.EXECUTE, LivePropertyEvent.class, new LivePropertyListener());
 		p.addListener(PositionPropertyListener.LID, Listener.EXECUTE, PositionPropertyEvent.class,
@@ -130,6 +143,10 @@ public class TankBattle implements Extrable {
 	@Override
 	public Extrable extra() {
 		return extra;
+	}
+
+	public Map<Paintable, PaintNode> getPaints() {
+		return paints;
 	}
 
 }

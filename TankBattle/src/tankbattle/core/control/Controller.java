@@ -1,7 +1,7 @@
 package tankbattle.core.control;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
+import tankbattle.core.others.Extrable;
 
 public interface Controller extends Extrable {
 

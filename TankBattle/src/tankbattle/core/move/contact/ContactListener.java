@@ -2,8 +2,8 @@ package tankbattle.core.move.contact;
 
 import java.util.Set;
 
-import tankbattle.core.Entity;
 import tankbattle.core.TankBattle;
+import tankbattle.core.entity.Entity;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.BulletMoveEvent;

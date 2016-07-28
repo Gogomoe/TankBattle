@@ -1,8 +1,8 @@
 package tankbattle.core.battle.attack;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.Livable;
+import tankbattle.core.others.Extrable;
 
 /**
  * 实现本接口的对象可造成伤害的<br/>

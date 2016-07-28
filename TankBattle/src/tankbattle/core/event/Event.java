@@ -1,7 +1,7 @@
 package tankbattle.core.event;
 
-import tankbattle.core.Extra;
-import tankbattle.core.Extrable;
+import tankbattle.core.others.Extra;
+import tankbattle.core.others.Extrable;
 
 /**
  * 事件是事件驱动的核心<br/>

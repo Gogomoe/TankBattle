@@ -1,4 +1,4 @@
-package tankbattle.core;
+package tankbattle.core.others;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import tankbattle.core.control.Named;
-import tankbattle.core.others.SetUtils;
 
 public class Group<T> {
 

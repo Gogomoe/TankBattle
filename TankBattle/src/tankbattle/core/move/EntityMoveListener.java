@@ -3,8 +3,8 @@ package tankbattle.core.move;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import tankbattle.core.Entity;
 import tankbattle.core.TankBattle;
+import tankbattle.core.entity.Entity;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.collide.CollideEvent;
 import tankbattle.core.move.contact.ContactListener;

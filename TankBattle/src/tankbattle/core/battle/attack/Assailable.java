@@ -1,7 +1,7 @@
 package tankbattle.core.battle.attack;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
+import tankbattle.core.others.Extrable;
 
 /**
  * 可以进行攻击的<br/>

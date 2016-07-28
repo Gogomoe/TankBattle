@@ -1,8 +1,8 @@
 package tankbattle.core.battle.bullet;
 
-import tankbattle.core.Block;
-import tankbattle.core.Bullet;
-import tankbattle.core.Entity;
+import tankbattle.core.block.Block;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.Entity;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.contact.BulletContactEvent;
 

@@ -1,7 +1,7 @@
 package tankbattle.core.move.contact;
 
-import tankbattle.core.Bullet;
-import tankbattle.core.Entity;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.Entity;
 
 public class BulletContactEvent extends ContactEntityEvent {
 

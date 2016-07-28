@@ -1,7 +1,7 @@
 package tankbattle.core.battle.tank;
 
-import tankbattle.core.Tank;
 import tankbattle.core.battle.attack.AttackEvent;
+import tankbattle.core.tank.Tank;
 
 public class TankAttackEvent extends AttackEvent {
 	private Tank attacker;

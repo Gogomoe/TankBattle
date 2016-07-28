@@ -1,7 +1,7 @@
 package tankbattle.core.shape;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
+import tankbattle.core.others.Extrable;
 import tankbattle.core.position.Positionable;
 
 public interface Shapable extends Positionable, Extrable {

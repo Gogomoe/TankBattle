@@ -1,7 +1,7 @@
 package tankbattle.core.move.contact;
 
-import tankbattle.core.Entity;
-import tankbattle.core.Tank;
+import tankbattle.core.entity.Entity;
+import tankbattle.core.tank.Tank;
 
 public class TankLeaveEvent extends LeaveEntityEvent {
 

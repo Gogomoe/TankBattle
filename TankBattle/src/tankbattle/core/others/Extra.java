@@ -1,4 +1,4 @@
-package tankbattle.core;
+package tankbattle.core.others;
 
 import java.util.Collections;
 import java.util.HashMap;

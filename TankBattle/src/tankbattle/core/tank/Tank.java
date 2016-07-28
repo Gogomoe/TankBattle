@@ -1,9 +1,13 @@
-package tankbattle.core;
+package tankbattle.core.tank;
 
+import tankbattle.core.TankBattle;
 import tankbattle.core.battle.attack.Assailable;
 import tankbattle.core.battle.tank.BulletFactory;
 import tankbattle.core.battle.tank.TankAttackEvent;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.Entity;
 import tankbattle.core.move.TankMoveEvent;
+import tankbattle.core.paint.TankPaintEvent;
 
 /**
  * 表示坦克的类<br/>
@@ -29,5 +33,10 @@ public class Tank extends Entity implements Assailable {
 	@Override
 	public void move() {
 		TankBattle.getGame().getProcess().send(new TankMoveEvent(this));
+	}
+	
+	@Override
+	public void paint() {
+		TankBattle.getGame().getProcess().send(new TankPaintEvent(this));
 	}
 }

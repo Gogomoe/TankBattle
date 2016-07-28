@@ -1,4 +1,4 @@
-package tankbattle.core;
+package tankbattle.core.others;
 
 /**
  * 表示可扩展

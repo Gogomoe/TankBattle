@@ -1,8 +1,9 @@
-package tankbattle.core;
+package tankbattle.core.entity;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import tankbattle.core.others.Group;
 import tankbattle.core.position.Point;
 import tankbattle.core.shape.VectorShape;
 

@@ -2,7 +2,7 @@ package tankbattle.core.control;
 
 import java.util.Set;
 
-import tankbattle.core.Group.MapGroup;
+import tankbattle.core.others.Group.MapGroup;
 
 public class Team implements Named {
 

@@ -3,8 +3,8 @@ package tankbattle.core.battle.tank;
 import java.util.HashSet;
 import java.util.Set;
 
-import tankbattle.core.Bullet;
-import tankbattle.core.Entity;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.Entity;
 
 public interface BulletFactory {
 

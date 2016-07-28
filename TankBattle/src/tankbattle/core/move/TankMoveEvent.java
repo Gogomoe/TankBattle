@@ -1,6 +1,6 @@
 package tankbattle.core.move;
 
-import tankbattle.core.Tank;
+import tankbattle.core.tank.Tank;
 
 public class TankMoveEvent extends EntityMoveEvent {
 

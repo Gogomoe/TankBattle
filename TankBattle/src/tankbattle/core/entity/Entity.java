@@ -1,5 +1,6 @@
-package tankbattle.core;
+package tankbattle.core.entity;
 
+import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.Livable;
 import tankbattle.core.battle.live.LivePropertyEvent;
 import tankbattle.core.control.Controller;
@@ -8,13 +9,17 @@ import tankbattle.core.control.PlayerPropertyEvent;
 import tankbattle.core.move.EntityMoveEvent;
 import tankbattle.core.move.Movable;
 import tankbattle.core.move.MovePropertyEvent;
+import tankbattle.core.others.Extra;
+import tankbattle.core.others.Extrable;
+import tankbattle.core.paint.EntityPaintEvent;
+import tankbattle.core.paint.Paintable;
 import tankbattle.core.position.Direction;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.shape.Rect;
 import tankbattle.core.shape.Shapable;
 import tankbattle.core.shape.ShapePropertyEvent;
 
-public class Entity implements Movable, Livable, Shapable, Extrable, Controller {
+public class Entity implements Movable, Livable, Shapable, Extrable, Controller, Paintable {
 
 	private Extra extra = new Extra();
 
@@ -54,6 +59,11 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller 
 	@Override
 	public void move() {
 		TankBattle.getGame().getProcess().send(new EntityMoveEvent(this));
+	}
+
+	@Override
+	public void paint() {
+		TankBattle.getGame().getProcess().send(new EntityPaintEvent(this));
 	}
 
 }

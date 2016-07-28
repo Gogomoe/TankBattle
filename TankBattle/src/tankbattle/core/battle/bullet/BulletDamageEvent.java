@@ -1,8 +1,8 @@
 package tankbattle.core.battle.bullet;
 
-import tankbattle.core.Bullet;
 import tankbattle.core.battle.attack.DamageEvent;
 import tankbattle.core.battle.live.Livable;
+import tankbattle.core.bullet.Bullet;
 
 public class BulletDamageEvent extends DamageEvent {
 

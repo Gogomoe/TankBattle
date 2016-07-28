@@ -1,7 +1,7 @@
 package tankbattle.core.position;
 
-import tankbattle.core.Extrable;
 import tankbattle.core.TankBattle;
+import tankbattle.core.others.Extrable;
 
 /**
  * 实现本接口表示该对象有位置<br/>

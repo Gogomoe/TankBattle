@@ -1,12 +1,12 @@
 package test;
 
-import tankbattle.core.Bullet;
-import tankbattle.core.Entity;
-import tankbattle.core.Tank;
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.bullet.BulletDamageEvent;
+import tankbattle.core.bullet.Bullet;
 import tankbattle.core.control.Player;
 import tankbattle.core.control.Team;
+import tankbattle.core.entity.Entity;
+import tankbattle.core.entity.EntityGroupEvent;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.contact.BulletContactEvent;
 import tankbattle.core.move.contact.ContactEntityEvent;
@@ -16,12 +16,13 @@ import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 import tankbattle.core.shape.Circle;
 import tankbattle.core.shape.VCircle;
+import tankbattle.core.tank.Tank;
 import tankbattle.core.time.TimeListener;
 
 public class Test {
 
 	public static void main(String[] args) {
-		attackTest();
+		contactTest();
 	}
 
 	public static void contactTest() {
@@ -34,8 +35,8 @@ public class Test {
 		e2.setLayer(-1);
 		e2.setPosition(new Point(0, 100));
 
-		TankBattle.getGame().getEntityGroup().add(e);
-		TankBattle.getGame().getEntityGroup().add(e2);
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(e, EntityGroupEvent.ADD_ENTITY));
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(e2, EntityGroupEvent.ADD_ENTITY));
 
 		long start = System.currentTimeMillis();
 
@@ -62,8 +63,8 @@ public class Test {
 		Tank t2 = new Tank();
 		t1.setPlayer(new Player("a", new Team("A")));
 		t2.setPlayer(new Player("b", new Team("B")));
-		TankBattle.getGame().getEntityGroup().add(t1);
-		TankBattle.getGame().getEntityGroup().add(t2);
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(t1, EntityGroupEvent.ADD_ENTITY));
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(t2, EntityGroupEvent.ADD_ENTITY));
 		TankBattle.getGame().getTeamGroup().add(t1.team());
 		TankBattle.getGame().getTeamGroup().add(t2.team());
 

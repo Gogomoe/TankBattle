@@ -1,7 +1,7 @@
 package tankbattle.core.move.collide;
 
-import tankbattle.core.Bullet;
-import tankbattle.core.Entity;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.Entity;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 

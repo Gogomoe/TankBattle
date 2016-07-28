@@ -1,7 +1,8 @@
 package tankbattle.core.battle.bullet;
 
-import tankbattle.core.Bullet;
 import tankbattle.core.TankBattle;
+import tankbattle.core.bullet.Bullet;
+import tankbattle.core.entity.EntityGroupEvent;
 import tankbattle.core.event.Listener;
 
 public class BulletDamageListener implements Listener<BulletDamageEvent> {
@@ -15,7 +16,7 @@ public class BulletDamageListener implements Listener<BulletDamageEvent> {
 		}
 		Bullet bullet = event.getDamager();
 		bullet.setLive(false);
-		TankBattle.getGame().getEntityGroup().remove(bullet);
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(bullet, EntityGroupEvent.REMOVE_ENTITY));
 	}
 
 }
