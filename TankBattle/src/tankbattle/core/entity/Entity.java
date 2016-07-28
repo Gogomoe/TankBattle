@@ -18,6 +18,8 @@ import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.shape.Rect;
 import tankbattle.core.shape.Shapable;
 import tankbattle.core.shape.ShapePropertyEvent;
+import tankbattle.core.view.EntityNode;
+import tankbattle.core.view.View;
 
 public class Entity implements Movable, Livable, Shapable, Extrable, Controller, Paintable {
 
@@ -49,6 +51,8 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 
 		TankBattle.getGame().getProcess()
 				.send(new ShapePropertyEvent(this).setShape(new Rect(50, 50)).setCode(ShapePropertyEvent.SET_SHAPE));
+
+		this.put(Paintable.KEY_NODE, new EntityNode(this));
 	}
 
 	@Override
@@ -62,8 +66,13 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 	}
 
 	@Override
-	public void paint() {
-		TankBattle.getGame().getProcess().send(new EntityPaintEvent(this));
+	public void paint(View view) {
+		TankBattle.getGame().getProcess().send(new EntityPaintEvent(this, view));
+	}
+
+	@Override
+	public EntityNode getNode() {
+		return (EntityNode) Paintable.super.getNode();
 	}
 
 }

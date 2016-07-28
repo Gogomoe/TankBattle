@@ -1,8 +1,8 @@
 package tankbattle.core.paint;
 
-import tankbattle.core.TankBattle;
 import tankbattle.core.event.Event;
 import tankbattle.core.view.PaintNode;
+import tankbattle.core.view.View;
 
 public class PaintEvent extends Event {
 
@@ -10,10 +10,12 @@ public class PaintEvent extends Event {
 
 	private PaintNode node;
 
-	public PaintEvent(Paintable paintable) {
+	private View view;
+
+	public PaintEvent(Paintable paintable, View view) {
 		super();
 		this.paintable = paintable;
-		this.node = TankBattle.getGame().getPaints().get(paintable);
+		this.node = paintable.getNode();
 	}
 
 	public Paintable getPaintable() {
@@ -31,6 +33,15 @@ public class PaintEvent extends Event {
 
 	public PaintEvent setNode(PaintNode node) {
 		this.node = node;
+		return this;
+	}
+
+	public View getView() {
+		return view;
+	}
+
+	public PaintEvent setView(View view) {
+		this.view = view;
 		return this;
 	}
 

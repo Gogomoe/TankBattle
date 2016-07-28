@@ -24,7 +24,6 @@ import tankbattle.core.control.TeamPropertyListener;
 import tankbattle.core.entity.EntityGroup;
 import tankbattle.core.entity.EntityGroupEvent;
 import tankbattle.core.entity.EntityGroupListener;
-import tankbattle.core.entity.EntityNodeListener;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.move.EntityMoveEvent;
@@ -40,13 +39,11 @@ import tankbattle.core.move.contact.ContactListener;
 import tankbattle.core.others.Extra;
 import tankbattle.core.others.Extrable;
 import tankbattle.core.others.Group.MapGroup;
-import tankbattle.core.paint.Paintable;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
 import tankbattle.core.shape.ShapePropertyEvent;
 import tankbattle.core.shape.ShapePropertyListener;
 import tankbattle.core.time.TimerGroup;
-import tankbattle.core.view.PaintNode;
 
 public class TankBattle implements Extrable {
 
@@ -71,8 +68,6 @@ public class TankBattle implements Extrable {
 
 	protected MapGroup<Team> teamGroup = new MapGroup<>();
 
-	protected Map<Paintable, PaintNode> paints = Collections.synchronizedMap(new HashMap<Paintable, PaintNode>());
-
 	protected double fps = 60.0;
 
 	public void init() {
@@ -89,7 +84,6 @@ public class TankBattle implements Extrable {
 		p.addListener(TeamPropertyListener.LID, Listener.EXECUTE, TeamPropertyEvent.class, new TeamPropertyListener());
 
 		p.addListener(EntityGroupListener.LID, Listener.EXECUTE, EntityGroupEvent.class, new EntityGroupListener());
-		p.addListener(EntityNodeListener.LID, Listener.AFTER_EXECUTE, EntityGroupEvent.class, new EntityNodeListener());
 
 		p.addListener(LivePropertyListener.LID, Listener.EXECUTE, LivePropertyEvent.class, new LivePropertyListener());
 		p.addListener(PositionPropertyListener.LID, Listener.EXECUTE, PositionPropertyEvent.class,
@@ -143,10 +137,6 @@ public class TankBattle implements Extrable {
 	@Override
 	public Extrable extra() {
 		return extra;
-	}
-
-	public Map<Paintable, PaintNode> getPaints() {
-		return paints;
 	}
 
 }

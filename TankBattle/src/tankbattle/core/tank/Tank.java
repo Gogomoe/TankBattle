@@ -8,6 +8,7 @@ import tankbattle.core.bullet.Bullet;
 import tankbattle.core.entity.Entity;
 import tankbattle.core.move.TankMoveEvent;
 import tankbattle.core.paint.TankPaintEvent;
+import tankbattle.core.view.View;
 
 /**
  * 表示坦克的类<br/>
@@ -34,9 +35,9 @@ public class Tank extends Entity implements Assailable {
 	public void move() {
 		TankBattle.getGame().getProcess().send(new TankMoveEvent(this));
 	}
-	
+
 	@Override
-	public void paint() {
-		TankBattle.getGame().getProcess().send(new TankPaintEvent(this));
+	public void paint(View view) {
+		TankBattle.getGame().getProcess().send(new TankPaintEvent(this, view));
 	}
 }

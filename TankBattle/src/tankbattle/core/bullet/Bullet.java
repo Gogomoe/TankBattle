@@ -8,6 +8,7 @@ import tankbattle.core.battle.live.Livable;
 import tankbattle.core.entity.Entity;
 import tankbattle.core.move.BulletMoveEvent;
 import tankbattle.core.paint.BulletPaintEvent;
+import tankbattle.core.view.View;
 
 public class Bullet extends Entity implements Damagable {
 
@@ -30,8 +31,8 @@ public class Bullet extends Entity implements Damagable {
 	}
 
 	@Override
-	public void paint() {
-		TankBattle.getGame().getProcess().send(new BulletPaintEvent(this));
+	public void paint(View view) {
+		TankBattle.getGame().getProcess().send(new BulletPaintEvent(this, view));
 	}
 
 }

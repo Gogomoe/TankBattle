@@ -5,6 +5,7 @@ import tankbattle.core.entity.Entity;
 import tankbattle.core.paint.BlockPaintEvent;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.Positionable;
+import tankbattle.core.view.View;
 
 public class Block extends Entity {
 
@@ -16,8 +17,8 @@ public class Block extends Entity {
 	}
 
 	@Override
-	public void paint() {
-		TankBattle.getGame().getProcess().send(new BlockPaintEvent(this));
+	public void paint(View view) {
+		TankBattle.getGame().getProcess().send(new BlockPaintEvent(this, view));
 	}
 
 }

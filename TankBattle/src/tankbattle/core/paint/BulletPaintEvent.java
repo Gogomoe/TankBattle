@@ -1,11 +1,12 @@
 package tankbattle.core.paint;
 
 import tankbattle.core.bullet.Bullet;
+import tankbattle.core.view.View;
 
 public class BulletPaintEvent extends EntityPaintEvent {
 
-	public BulletPaintEvent(Bullet paintable) {
-		super(paintable);
+	public BulletPaintEvent(Bullet paintable, View view) {
+		super(paintable, view);
 	}
 
 	@Override

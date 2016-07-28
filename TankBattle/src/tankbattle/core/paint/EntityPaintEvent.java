@@ -2,11 +2,12 @@ package tankbattle.core.paint;
 
 import tankbattle.core.entity.Entity;
 import tankbattle.core.view.EntityNode;
+import tankbattle.core.view.View;
 
 public class EntityPaintEvent extends PaintEvent {
 
-	public EntityPaintEvent(Entity paintable) {
-		super(paintable);
+	public EntityPaintEvent(Entity paintable, View view) {
+		super(paintable, view);
 	}
 
 	@Override
