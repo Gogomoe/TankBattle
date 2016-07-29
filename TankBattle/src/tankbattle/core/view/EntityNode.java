@@ -31,7 +31,7 @@ public class EntityNode extends PaintNode {
 		return width;
 	}
 
-	public PaintNode setWidth(double width) {
+	public EntityNode setWidth(double width) {
 		this.width = width;
 		return this;
 	}
@@ -40,7 +40,7 @@ public class EntityNode extends PaintNode {
 		return height;
 	}
 
-	public PaintNode setHeight(double height) {
+	public EntityNode setHeight(double height) {
 		this.height = height;
 		return this;
 	}

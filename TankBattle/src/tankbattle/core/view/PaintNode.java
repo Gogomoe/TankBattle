@@ -1,12 +1,13 @@
 package tankbattle.core.view;
 
-import javafx.scene.canvas.Canvas;
+import java.awt.image.BufferedImage;
+
 import tankbattle.core.paint.Paintable;
 import tankbattle.core.position.Point;
 
 public class PaintNode {
 
-	private Canvas canvas = new Canvas();
+	private BufferedImage image;
 
 	private Paintable paint;
 
@@ -17,8 +18,13 @@ public class PaintNode {
 		this.paint = paint;
 	}
 
-	public Canvas getCanvas() {
-		return canvas;
+	public BufferedImage getImage() {
+		return image;
+	}
+
+	public PaintNode setImage(BufferedImage image) {
+		this.image = image;
+		return this;
 	}
 
 	public Paintable getPaint() {
