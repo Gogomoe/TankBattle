@@ -1,5 +1,8 @@
 package tankbattle.core.entity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.Livable;
 import tankbattle.core.battle.live.LivePropertyEvent;
@@ -52,7 +55,7 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 		TankBattle.getGame().getProcess()
 				.send(new ShapePropertyEvent(this).setShape(new Rect(50, 50)).setCode(ShapePropertyEvent.SET_SHAPE));
 
-		this.put(Paintable.KEY_NODE, new EntityNode(this));
+		this.put(KEY_NODE, new HashMap<View, EntityNode>());
 	}
 
 	@Override
@@ -71,8 +74,16 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 	}
 
 	@Override
-	public EntityNode getNode() {
-		return (EntityNode) Paintable.super.getNode();
+	public EntityNode getNode(View view) {
+		if (view == null) {
+			return null;
+		}
+		@SuppressWarnings("unchecked")
+		Map<View, EntityNode> map = this.getObj(KEY_NODE, Map.class);
+		if (!map.containsKey(view)) {
+			map.put(view, new EntityNode(this));
+		}
+		return map.get(view);
 	}
 
 }

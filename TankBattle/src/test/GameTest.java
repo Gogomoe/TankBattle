@@ -15,6 +15,7 @@ import tankbattle.core.event.Listener;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.position.Vector;
 import tankbattle.core.time.TimeListener;
+import tankbattle.core.time.TimerGroup;
 import tankbattle.core.view.EntityNode;
 import tankbattle.core.view.View;
 
@@ -27,10 +28,14 @@ public class GameTest extends Application {
 		Scene scene = new Scene(root, 600, 480);
 
 		View v = new View(600, 480);
-		v.setScale(0.5);
 		root.getChildren().add(v.getCanvas());
 		// v.getCanvas().setTranslateX(300);
 		// v.getCanvas().setTranslateY(240);
+
+		TimerGroup ti = new TimerGroup(5);
+		ti.createThread();
+		TankBattle.getGame().getTimer().putTimer("view", ti);
+		ti.start();
 
 		TankBattle.getGame().getProcess().addListener(Listener.EXECUTE, EntityPaintEvent.class, e -> {
 			EntityNode node = e.getNode();
@@ -45,8 +50,17 @@ public class GameTest extends Application {
 			e.setExecuted(true);
 		});
 
-		TankBattle.getGame().getTimer().addListener(new TimeListener(1000 / TankBattle.getGame().getFPS(), e -> {
-			v.paint();
+		TankBattle.getGame().getTimer().getTimer("view")
+				.addListener(new TimeListener(1000 / TankBattle.getGame().getFPS(), e -> {
+					v.paint();
+				}));
+		TankBattle.getGame().getTimer().addListener(new TimeListener(10000, e -> {
+			System.gc();
+		}));
+
+		long start = System.currentTimeMillis();
+		TankBattle.getGame().getTimer().addListener(new TimeListener(1000, ev -> {
+			System.out.println(System.currentTimeMillis() - start);
 		}));
 
 		Entity entity = new Entity();
@@ -58,6 +72,7 @@ public class GameTest extends Application {
 
 		primaryStage.setOnCloseRequest(e -> {
 			TankBattle.getGame().getTimer().stop();
+			System.gc();
 			System.exit(0);
 		});
 
@@ -65,6 +80,10 @@ public class GameTest extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	static {
+		new CodeCount(CodeCount.SIMPLE, "./src").codeLines();
 	}
 
 }

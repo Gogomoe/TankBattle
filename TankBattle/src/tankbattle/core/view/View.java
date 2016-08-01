@@ -33,16 +33,18 @@ public class View {
 				BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = img.createGraphics();
 		TankBattle.getGame().getEntityGroup().getAll().stream().filter(p -> {
-			if (p.getNode().getVector() == null) {
-				p.paint(new View(1, 1));
+			EntityNode node = p.getNode(this);
+			if (node.getVector() == null) {
+				p.paint(this);
 			}
-			VRect canvas = new VRect(new Rect(p.getNode().getWidth(), p.getNode().getHeight()),
-					p.position().add(p.getNode().getVector()).toVector());
+			VRect canvas = new VRect(new Rect(node.getWidth(), node.getHeight()),
+					p.position().add(node.getVector()).toVector());
 			return rect.contacts(canvas);
 		}).sorted((e1, e2) -> e1.layer() - e2.layer()).forEach(e -> {
+			EntityNode node = e.getNode(this);
 			e.paint(this);
-			g.drawImage(e.getNode().getImage(), round((float) e.getNode().getPoint().getX()),
-					round((float) e.getNode().getPoint().getY()), null);
+			g.drawImage(node.getImage(), round((float) node.getPoint().getX()), round((float) node.getPoint().getY()),
+					null);
 		});
 		g.dispose();
 		WritableImage wi = SwingFXUtils.toFXImage(img, null);

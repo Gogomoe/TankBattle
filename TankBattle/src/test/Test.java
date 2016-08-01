@@ -29,18 +29,18 @@ public class Test {
 	public static void paintTest() {
 		Entity e1 = new Entity();
 		Entity e2 = new Entity();
-		//然后应该添加绘图事件
+		// 然后应该添加绘图事件
 		// 游戏开始时应对全部实体进行一次绘图，产生EntityNode中的属性
 		// Entity绘图监听最后应将postion和vector生成对映的图上相对坐标point
+		View v = new View(500, 500);
 		e1.setLayer(100);
 		e2.setLayer(50);
-		e1.getNode().setWidth(10);
-		e1.getNode().setHeight(10);
-		e2.getNode().setWidth(10);
-		e2.getNode().setHeight(10);
-		e1.getNode().setVector(new Vector());
-		e2.getNode().setVector(new Vector());
-		View v = new View(500, 500);
+		e1.getNode(v).setWidth(10);
+		e1.getNode(v).setHeight(10);
+		e2.getNode(v).setWidth(10);
+		e2.getNode(v).setHeight(10);
+		e1.getNode(v).setVector(new Vector());
+		e2.getNode(v).setVector(new Vector());
 		TankBattle.getGame().getProcess().send(new EntityGroupEvent(e1, EntityGroupEvent.ADD_ENTITY));
 		TankBattle.getGame().getProcess().send(new EntityGroupEvent(e2, EntityGroupEvent.ADD_ENTITY));
 		v.paint();

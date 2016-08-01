@@ -89,7 +89,10 @@ public class TimerGroup {
 
 		ReentrantLock lock = new ReentrantLock();
 
-		Condition con = lock.newCondition();
+		/**
+		 * 用于判断该Timer是否在运行的Condition,如果该 Timer的 Runing = fasle,这个条件会持续 await()
+		 */
+		Condition runCond = lock.newCondition();
 
 		ExecuteThread exe = new ExecuteThread();
 
@@ -104,7 +107,7 @@ public class TimerGroup {
 				while (!running()) {
 					lock.lock();
 					try {
-						con.await();
+						runCond.await();
 					} catch (InterruptedException e) {
 						throw new RuntimeException(e);
 					}
@@ -161,15 +164,31 @@ public class TimerGroup {
 		running = true;
 		if (thread != null) {
 			thread.lock.lock();
-			thread.con.signal();
+			thread.runCond.signal();
 			thread.lock.unlock();
+		}
+		for (String key : timers.keySet()) {
+			TimerGroup sub = timers.get(key);
+			if (sub != null) {
+				sub.start();
+			}
 		}
 		return this;
 	}
 
 	public TimerGroup stop() {
 		running = false;
+		for (String key : timers.keySet()) {
+			TimerGroup sub = timers.get(key);
+			if (sub != null) {
+				sub.stop();
+			}
+		}
 		return this;
+	}
+
+	public TimerGroup getTimer(String key) {
+		return timers.get(key);
 	}
 
 	public TimerGroup putTimer(String key, TimerGroup timer) {

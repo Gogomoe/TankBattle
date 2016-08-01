@@ -15,7 +15,7 @@ public class PaintEvent extends Event {
 	public PaintEvent(Paintable paintable, View view) {
 		super();
 		this.paintable = paintable;
-		this.node = paintable.getNode();
+		this.node = paintable.getNode(view);
 		this.view = view;
 	}
 

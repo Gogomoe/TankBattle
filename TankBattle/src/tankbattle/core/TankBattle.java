@@ -64,7 +64,7 @@ public class TankBattle implements Extrable {
 
 	protected Map<String, EventProcess> processes = Collections.synchronizedMap(new HashMap<>());
 
-	protected TimerGroup timer = new TimerGroup(1);
+	protected TimerGroup timer = new TimerGroup(5);
 
 	protected EntityGroup entityGroup = new EntityGroup();
 
