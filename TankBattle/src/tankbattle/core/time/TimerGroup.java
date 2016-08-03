@@ -85,7 +85,7 @@ public class TimerGroup {
 		return this;
 	}
 
-	private class TimeThread extends Thread {
+	private class TimeThread extends GameThread {
 
 		ReentrantLock lock = new ReentrantLock();
 
@@ -131,7 +131,7 @@ public class TimerGroup {
 		 * @author Gogo
 		 *
 		 */
-		class ExecuteThread extends Thread {
+		class ExecuteThread extends GameThread {
 			ReentrantLock elock = new ReentrantLock();
 			Condition econ = elock.newCondition();
 

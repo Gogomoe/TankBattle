@@ -32,6 +32,10 @@ public class GameTest extends Application {
 		// v.getCanvas().setTranslateX(300);
 		// v.getCanvas().setTranslateY(240);
 
+		TankBattle game = new TankBattle();
+		TankBattle.setGame(game);
+		game.init();
+
 		TimerGroup ti = new TimerGroup(5);
 		ti.createThread();
 		TankBattle.getGame().getTimer().putTimer("view", ti);
@@ -75,6 +79,8 @@ public class GameTest extends Application {
 			System.gc();
 			System.exit(0);
 		});
+		
+		TankBattle.setGame(null);
 
 	}
 

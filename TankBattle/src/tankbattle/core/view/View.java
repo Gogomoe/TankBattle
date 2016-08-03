@@ -43,8 +43,10 @@ public class View {
 		}).sorted((e1, e2) -> e1.layer() - e2.layer()).forEach(e -> {
 			EntityNode node = e.getNode(this);
 			e.paint(this);
-			g.drawImage(node.getImage(), round((float) node.getPoint().getX()), round((float) node.getPoint().getY()),
-					null);
+			if (node.getImage() != null) {
+				g.drawImage(node.getImage(), round((float) node.getPoint().getX()),
+						round((float) node.getPoint().getY()), null);
+			}
 		});
 		g.dispose();
 		WritableImage wi = SwingFXUtils.toFXImage(img, null);

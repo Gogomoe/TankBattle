@@ -49,18 +49,29 @@ import tankbattle.core.time.TimerGroup;
 
 public class TankBattle implements Extrable {
 
-	private Extra extra = new Extra();
-
-	protected static TankBattle game;
+	protected static Map<Thread, TankBattle> gameMap;
 
 	static {
-		game = new TankBattle();
-		game.init();
+		gameMap = Collections.synchronizedMap(new HashMap<>());
 	}
 
 	public static TankBattle getGame() {
-		return game;
+		return gameMap.get(Thread.currentThread());
 	}
+
+	public static TankBattle getGame(Thread thread) {
+		return gameMap.get(thread);
+	}
+
+	public static TankBattle setGame(TankBattle game) {
+		return gameMap.put(Thread.currentThread(), game);
+	}
+
+	public static TankBattle setGame(Thread thread, TankBattle game) {
+		return gameMap.put(thread, game);
+	}
+
+	private Extra extra = new Extra();
 
 	protected Map<String, EventProcess> processes = Collections.synchronizedMap(new HashMap<>());
 
@@ -112,6 +123,14 @@ public class TankBattle implements Extrable {
 				new EntityPaintListener.PointTransListener());
 
 		timer.createThread();
+	}
+
+	public void start() {
+		getTimer().start();
+	}
+
+	public void stop() {
+		getTimer().stop();
 	}
 
 	public double getFPS() {
