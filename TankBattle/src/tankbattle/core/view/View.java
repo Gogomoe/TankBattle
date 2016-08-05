@@ -40,7 +40,17 @@ public class View {
 			VRect canvas = new VRect(new Rect(node.getWidth(), node.getHeight()),
 					p.position().add(node.getVector()).toVector());
 			return rect.contacts(canvas);
-		}).sorted((e1, e2) -> e1.layer() - e2.layer()).forEach(e -> {
+		}).sorted((e1, e2) -> {
+			int l = e1.layer() - e2.layer();
+			if (l == 0) {
+				int y = (int) (e1.getY() - e2.getY());
+				if (y == 0) {
+					return (int) (e1.getX() - e2.getX());
+				}
+				return y;
+			}
+			return l;
+		}).forEach(e -> {
 			EntityNode node = e.getNode(this);
 			e.paint(this);
 			if (node.getImage() != null) {

@@ -1,5 +1,10 @@
 package tankbattle.core.paint;
 
+import static java.lang.Math.ceil;
+
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import tankbattle.core.event.Listener;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
@@ -22,6 +27,17 @@ public class EntityPaintListener {
 			double scale = view.getScale();
 			Point start = view.getCenter().add(new Vector(-view.getScaledWidth() / 2, -view.getScaledHeight() / 2));
 			node.setPoint(pos.toVector().subtract(start.toVector()).multiply(1.0 / scale).toPoint());
+			BufferedImage img = node.getImage();
+
+			if (Math.abs(scale - 1) < 0.01 || img == null) {// 0.99<scale<1.01
+				return;
+			}
+			int swidth = (int) ceil(node.getWidth() / scale), sheight = (int) ceil(node.getHeight() / scale);
+			BufferedImage simg = new BufferedImage(swidth, sheight, BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D g = simg.createGraphics();
+			g.drawImage(img, 0, 0, swidth, sheight, null);
+			g.dispose();
+			node.setImage(simg);
 		}
 
 	}

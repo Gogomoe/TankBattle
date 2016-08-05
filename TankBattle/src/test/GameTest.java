@@ -28,6 +28,7 @@ public class GameTest extends Application {
 		Scene scene = new Scene(root, 600, 480);
 
 		View v = new View(600, 480);
+		
 		root.getChildren().add(v.getCanvas());
 		// v.getCanvas().setTranslateX(300);
 		// v.getCanvas().setTranslateY(240);
@@ -62,11 +63,6 @@ public class GameTest extends Application {
 			System.gc();
 		}));
 
-		long start = System.currentTimeMillis();
-		TankBattle.getGame().getTimer().addListener(new TimeListener(1000, ev -> {
-			System.out.println(System.currentTimeMillis() - start);
-		}));
-
 		Entity entity = new Entity();
 		TankBattle.getGame().getProcess().send(new EntityGroupEvent(entity, EntityGroupEvent.ADD_ENTITY));
 
@@ -75,11 +71,13 @@ public class GameTest extends Application {
 		primaryStage.show();
 
 		primaryStage.setOnCloseRequest(e -> {
+			TankBattle.setGame(game);
 			TankBattle.getGame().getTimer().stop();
 			System.gc();
+			TankBattle.setGame(null);
 			System.exit(0);
 		});
-		
+
 		TankBattle.setGame(null);
 
 	}
