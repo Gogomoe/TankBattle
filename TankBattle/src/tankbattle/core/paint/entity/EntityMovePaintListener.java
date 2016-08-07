@@ -65,12 +65,11 @@ public class EntityMovePaintListener implements Listener<EntityPaintEvent> {
 		process.removeListener(ml);
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public void listen(EntityPaintEvent event) {
 		EntityNode node = event.getNode();
 		Entity e = event.getPaintable();
-		if (event.canceled() || event.executed() || node != null || !cls.isAssignableFrom(e.getClass())) {
+		if (event.canceled() || event.executed() || node == null || !cls.isAssignableFrom(e.getClass())) {
 			return;
 		}
 		int w = (int) ceil(ShapeUtils.getWidth(e.shape()) * swidth),

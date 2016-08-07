@@ -1,22 +1,31 @@
 package test;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import tankbattle.core.TankBattle;
-import tankbattle.core.entity.Entity;
 import tankbattle.core.entity.EntityGroupEvent;
 import tankbattle.core.event.Listener;
+import tankbattle.core.input.KeyEvent;
+import tankbattle.core.input.KeyOperateListener;
+import tankbattle.core.input.KeyOperation;
+import tankbattle.core.input.KeyPressedEvent;
+import tankbattle.core.input.KeyReleasedEvent;
+import tankbattle.core.input.KeyTypedEvent;
+import tankbattle.core.others.ImageUtils;
 import tankbattle.core.paint.EntityPaintEvent;
-import tankbattle.core.position.Vector;
+import tankbattle.core.paint.entity.EntityMovePaintListener;
+import tankbattle.core.position.Direction;
+import tankbattle.core.tank.Tank;
 import tankbattle.core.time.TimeListener;
 import tankbattle.core.time.TimerGroup;
-import tankbattle.core.view.EntityNode;
 import tankbattle.core.view.View;
 
 public class GameTest extends Application {
@@ -28,10 +37,8 @@ public class GameTest extends Application {
 		Scene scene = new Scene(root, 600, 480);
 
 		View v = new View(600, 480);
-		
+
 		root.getChildren().add(v.getCanvas());
-		// v.getCanvas().setTranslateX(300);
-		// v.getCanvas().setTranslateY(240);
 
 		TankBattle game = new TankBattle();
 		TankBattle.setGame(game);
@@ -40,20 +47,79 @@ public class GameTest extends Application {
 		TimerGroup ti = new TimerGroup(5);
 		ti.createThread();
 		TankBattle.getGame().getTimer().putTimer("view", ti);
-		ti.start();
 
-		TankBattle.getGame().getProcess().addListener(Listener.EXECUTE, EntityPaintEvent.class, e -> {
-			EntityNode node = e.getNode();
-			node.setWidth(50).setHeight(50);
-			node.setVector(new Vector(-25, -25));
+		class MaoYv extends Tank {
 
-			node.setImage(new BufferedImage(50, 50, BufferedImage.TYPE_4BYTE_ABGR));
-			Graphics2D g = node.getImage().createGraphics();
-			g.setColor(Color.blue);
-			g.fillRect(0, 0, 50, 50);
-			g.dispose();
-			e.setExecuted(true);
+			@Override
+			public void staticInit() {
+				super.staticInit();
+				try {
+					BufferedImage[] is = ImageUtils
+							.cutImage(ImageIO.read(getClass().getResource("../tankbattle/images/tanks/毛玉.png")), 4, 4);
+					EntityMovePaintListener e = new EntityMovePaintListener(MaoYv.class);
+					e.setSouth(is[0], is[1], is[2], is[3]);
+					e.setWest(is[4], is[5], is[6], is[7]);
+					e.setEast(is[8], is[9], is[10], is[11]);
+					e.setNorth(is[12], is[13], is[14], is[15]);
+					e.setSheight(1.5);
+					TankBattle.getGame().getProcess().addListener(EntityPaintEvent.class, e);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+		}
+		// Entity entity = new Entity();
+		Tank entity = new MaoYv();
+		
+		TankBattle.getGame().getProcess().send(new EntityGroupEvent(entity, EntityGroupEvent.ADD_ENTITY));
+
+		TankBattle.getGame().getProcess().addListener(KeyOperateListener.LID, Listener.EXECUTE, KeyEvent.class,
+				new KeyOperateListener());
+
+		v.getCanvas().addEventHandler(javafx.scene.input.KeyEvent.ANY, e -> {
+			TankBattle.setGame(game);
+			if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_PRESSED)) {
+				TankBattle.getGame().getProcess().send(new KeyPressedEvent(e, v));
+			} else if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_RELEASED)) {
+				TankBattle.getGame().getProcess().send(new KeyReleasedEvent(e, v));
+			} else if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_TYPED)) {
+				TankBattle.getGame().getProcess().send(new KeyTypedEvent(e, v));
+			}
+			TankBattle.setGame(null);
 		});
+		v.getKeyManager().add(KeyCode.UP, new KeyOperation("上", f -> {
+			entity.setTowards(Direction.NORTH);
+			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
+				entity.setMoving(true);
+			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
+				entity.setMoving(false);
+			}
+		}));
+		v.getKeyManager().add(KeyCode.DOWN, new KeyOperation("下", f -> {
+			entity.setTowards(Direction.SOUTH);
+			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
+				entity.setMoving(true);
+			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
+				entity.setMoving(false);
+			}
+		}));
+		v.getKeyManager().add(KeyCode.LEFT, new KeyOperation("左", f -> {
+			entity.setTowards(Direction.WEST);
+			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
+				entity.setMoving(true);
+			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
+				entity.setMoving(false);
+			}
+		}));
+		v.getKeyManager().add(KeyCode.RIGHT, new KeyOperation("右", f -> {
+			entity.setTowards(Direction.EAST);
+			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
+				entity.setMoving(true);
+			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
+				entity.setMoving(false);
+			}
+		}));
 
 		TankBattle.getGame().getTimer().getTimer("view")
 				.addListener(new TimeListener(1000 / TankBattle.getGame().getFPS(), e -> {
@@ -63,13 +129,10 @@ public class GameTest extends Application {
 			System.gc();
 		}));
 
-		Entity entity = new Entity();
-		TankBattle.getGame().getProcess().send(new EntityGroupEvent(entity, EntityGroupEvent.ADD_ENTITY));
-
 		TankBattle.getGame().getTimer().start();
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
+		v.getCanvas().requestFocus();
 		primaryStage.setOnCloseRequest(e -> {
 			TankBattle.setGame(game);
 			TankBattle.getGame().getTimer().stop();

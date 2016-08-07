@@ -22,7 +22,8 @@ public class Tank extends Entity implements Assailable {
 
 	final public static String KEY_BULLET_FACTORY = "Tank:BulletFactory";
 
-	{
+	public void init() {
+		super.init();
 		put(KEY_BULLET_FACTORY, new BulletFactory.EntityBulletFactory(this, new Bullet(this, 20)));
 	}
 

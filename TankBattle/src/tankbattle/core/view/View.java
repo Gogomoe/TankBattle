@@ -10,6 +10,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
 import tankbattle.core.TankBattle;
+import tankbattle.core.input.KeyManager;
 import tankbattle.core.position.Point;
 import tankbattle.core.shape.Rect;
 import tankbattle.core.shape.VRect;
@@ -18,6 +19,8 @@ public class View {
 
 	private Canvas canvas;
 
+	private KeyManager keyManager;
+
 	private double scale = 1.0;
 
 	private Point center = new Point(0, 0);
@@ -25,6 +28,7 @@ public class View {
 	public View(int width, int height) {
 		super();
 		canvas = new Canvas(width, height);
+		keyManager = new KeyManager();
 	}
 
 	public void paint() {
@@ -109,5 +113,10 @@ public class View {
 	public Canvas getCanvas() {
 		return canvas;
 	}
+
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
+	
 
 }

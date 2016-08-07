@@ -27,10 +27,6 @@ public class PointTransListener implements Listener<EntityPaintEvent> {
 		Point start = view.getCenter().add(new Vector(-view.getScaledWidth() / 2, -view.getScaledHeight() / 2));
 		node.setPoint(pos.toVector().subtract(start.toVector()).multiply(1.0 / scale).toPoint());
 		BufferedImage img = node.getImage();
-
-		if (Math.abs(scale - 1) < 0.01 || img == null) {// 0.99<scale<1.01
-			return;
-		}
 		int swidth = (int) ceil(node.getWidth() / scale), sheight = (int) ceil(node.getHeight() / scale);
 		BufferedImage simg = new BufferedImage(swidth, sheight, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = simg.createGraphics();

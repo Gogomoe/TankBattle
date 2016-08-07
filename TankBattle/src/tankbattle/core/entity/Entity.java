@@ -39,7 +39,15 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 
 	public static Player ENTITY_PLAYER = Player.system;
 
-	{
+	public Entity() {
+		if (!TankBattle.getGame().contains("Entity:StaticInit:" + getClass().getName())) {
+			TankBattle.getGame().put("Entity:StaticInit:" + getClass().getName(), true);
+			staticInit();
+		}
+		init();
+	}
+
+	public void init() {
 		TankBattle.getGame().getProcess()
 				.send(new LivePropertyEvent(this).setHP(ENTITY_HP).setDEF(ENTITY_DEF).setLive(ENTITY_LIVE)
 						.setMaxHP(ENTITY_MAXHP).setCode(LivePropertyEvent.SET_HP + LivePropertyEvent.SET_MAXHP
@@ -56,6 +64,10 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 				.send(new ShapePropertyEvent(this).setShape(new Rect(50, 50)).setCode(ShapePropertyEvent.SET_SHAPE));
 
 		this.put(KEY_NODE, new HashMap<View, EntityNode>());
+	}
+
+	public void staticInit() {
+
 	}
 
 	@Override
