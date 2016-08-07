@@ -109,6 +109,7 @@ public class EventProcess implements ListenerGroup {
 	public ListenerItem<? extends Event> removeListener(String name) {
 		ListenerItem<? extends Event> l = getListener(name);
 		listeners.remove(l);
+		l.getListener().destory(this);
 		return l;
 	}
 
@@ -116,6 +117,7 @@ public class EventProcess implements ListenerGroup {
 	public ListenerItem<? extends Event> removeListener(Listener<? extends Event> listener) {
 		ListenerItem<? extends Event> l = getListener(listener);
 		listeners.remove(l);
+		l.getListener().destory(this);
 		return l;
 	}
 

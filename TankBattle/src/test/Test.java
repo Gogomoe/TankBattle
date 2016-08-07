@@ -1,5 +1,11 @@
 package test;
 
+import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.bullet.BulletDamageEvent;
 import tankbattle.core.bullet.Bullet;
@@ -11,6 +17,7 @@ import tankbattle.core.event.Listener;
 import tankbattle.core.move.contact.BulletContactEvent;
 import tankbattle.core.move.contact.ContactEntityEvent;
 import tankbattle.core.move.contact.LeaveEntityEvent;
+import tankbattle.core.others.ImageUtils;
 import tankbattle.core.position.Direction;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
@@ -26,7 +33,22 @@ public class Test {
 		TankBattle.setGame(game);
 		game.init();
 
-		attackTest();
+		cutImageTest();
+	}
+
+	public static void cutImageTest() {
+		try {
+			BufferedImage[] img = ImageUtils
+					.cutImage(ImageIO.read(Test.class.getResource("../tankbattle/images/tanks/毛玉.png")), 4, 4);
+			for (int i = 0; i < img.length; i++) {
+				ImageIO.write(img[i], "png", new FileOutputStream("./test/" + i + ".png"));
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
 	}
 
 	public static void contactTest() {

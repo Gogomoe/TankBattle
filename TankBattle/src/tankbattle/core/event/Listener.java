@@ -16,4 +16,8 @@ public interface Listener<T extends Event> {
 	default void init(EventProcess process) {
 
 	}
+
+	default void destory(EventProcess process) {
+
+	}
 }

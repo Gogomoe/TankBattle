@@ -40,7 +40,7 @@ import tankbattle.core.others.Extra;
 import tankbattle.core.others.Extrable;
 import tankbattle.core.others.Group.MapGroup;
 import tankbattle.core.paint.EntityPaintEvent;
-import tankbattle.core.paint.EntityPaintListener;
+import tankbattle.core.paint.entity.PointTransListener;
 import tankbattle.core.position.PositionPropertyEvent;
 import tankbattle.core.position.PositionPropertyListener;
 import tankbattle.core.shape.ShapePropertyEvent;
@@ -119,8 +119,7 @@ public class TankBattle implements Extrable {
 		p.addListener(BulletDamageListener.LID, Listener.AFTER_EXECUTE, BulletDamageEvent.class,
 				new BulletDamageListener());
 
-		p.addListener(EntityPaintListener.PointTransListener.LID, Listener.AFTER_EXECUTE, EntityPaintEvent.class,
-				new EntityPaintListener.PointTransListener());
+		p.addListener(PointTransListener.LID, Listener.AFTER_EXECUTE, EntityPaintEvent.class, new PointTransListener());
 
 		timer.createThread();
 	}
