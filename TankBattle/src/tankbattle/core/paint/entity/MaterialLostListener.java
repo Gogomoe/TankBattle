@@ -1,0 +1,42 @@
+package tankbattle.core.paint.entity;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import tankbattle.core.event.Listener;
+import tankbattle.core.others.ImageUtils;
+import tankbattle.core.others.ShapeUtils;
+import tankbattle.core.paint.EntityPaintEvent;
+import tankbattle.core.position.Vector;
+import tankbattle.core.view.EntityNode;
+
+public class MaterialLostListener implements Listener<EntityPaintEvent> {
+
+	public static final String LID = "TankBattle:MaterialLostListener";
+
+	public BufferedImage img;
+
+	public MaterialLostListener() {
+		img = new BufferedImage(60, 60, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g = img.createGraphics();
+		g.setColor(new Color(0, 185, 232, 150));
+		g.fillRect(0, 0, 60, 60);
+		g.dispose();
+	}
+
+	@Override
+	public void listen(EntityPaintEvent event) {
+		EntityNode node = event.getNode();
+		if (event.executed() || event.canceled() || node == null || node.getImage() != null) {
+			return;
+		}
+		double w = ShapeUtils.getWidth(event.getPaintable().shape()),
+				h = ShapeUtils.getHeight(event.getPaintable().shape());
+		node.setWidth(w).setHeight(h);
+		node.setVector(new Vector(-w / 2, -h / 2));
+		event.getNode().setImage(ImageUtils.copyImage(img));
+		event.setExecuted(true);
+	}
+
+}

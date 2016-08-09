@@ -13,21 +13,30 @@ public class EntityGroup extends Group<Entity> {
 		if (vshape == null) {
 			return null;
 		}
-		return set.stream().filter(f -> f.vshape().contains(vshape)).collect(Collectors.toSet());
+		lock.lock();
+		Set<Entity> s = set.stream().filter(f -> f.vshape().contains(vshape)).collect(Collectors.toSet());
+		lock.unlock();
+		return s;
 	}
 
 	public Set<Entity> getContact(VectorShape vshape) {
 		if (vshape == null) {
 			return null;
 		}
-		return set.stream().filter(f -> f.vshape().contacts(vshape)).collect(Collectors.toSet());
+		lock.lock();
+		Set<Entity> s = set.stream().filter(f -> f.vshape().contacts(vshape)).collect(Collectors.toSet());
+		lock.unlock();
+		return s;
 	}
 
 	public Set<Entity> getPos(Point p) {
 		if (p == null) {
 			return null;
 		}
-		return set.stream().filter(f -> f.vshape().contains(p)).collect(Collectors.toSet());
+		lock.lock();
+		Set<Entity> s = set.stream().filter(f -> f.vshape().contains(p)).collect(Collectors.toSet());
+		lock.unlock();
+		return s;
 	}
 
 	public Set<Entity> getPos(double x, double y) {

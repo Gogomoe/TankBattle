@@ -33,7 +33,7 @@ public class Test {
 		TankBattle.setGame(game);
 		game.init();
 
-		cutImageTest();
+		attackTest();
 	}
 
 	public static void cutImageTest() {

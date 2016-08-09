@@ -1,5 +1,8 @@
 package tankbattle.core.tank;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.attack.Assailable;
 import tankbattle.core.battle.tank.BulletFactory;
@@ -24,7 +27,16 @@ public class Tank extends Entity implements Assailable {
 
 	public void init() {
 		super.init();
-		put(KEY_BULLET_FACTORY, new BulletFactory.EntityBulletFactory(this, new Bullet(this, 20)));
+		BulletFactory bf = () -> {
+			Bullet b = new Bullet(this, 20);
+			b.setPlayer(this.player());
+			b.setTowards(this.towards());
+			b.setPosition(this.position());
+			Set<Bullet> set = new HashSet<>();
+			set.add(b);
+			return set;
+		};
+		put(KEY_BULLET_FACTORY, bf);
 	}
 
 	@Override
