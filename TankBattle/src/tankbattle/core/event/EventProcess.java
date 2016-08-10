@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 /**
@@ -16,22 +18,27 @@ import java.util.stream.Collectors;
 public class EventProcess implements ListenerGroup {
 
 	private Set<ListenerItem<? extends Event>> listeners = Collections
-			.synchronizedSet(new HashSet<ListenerItem<? extends Event>>());;
+			.synchronizedSet(new HashSet<ListenerItem<? extends Event>>());
+	private Lock lock = new ReentrantLock();
 
 	public <T extends Event> T send(T e) {
+		lock.lock();
 		listeners(e.getClass()).forEach(i -> {
 			@SuppressWarnings("unchecked")
 			Listener<T> l = (Listener<T>) i.getListener();
 			l.listen(e);
 		});
+		lock.unlock();
 		return e;
 	}
 
 	public <T extends Event> T send(T e, List<ListenerItem<T>> listeners) {
+		lock.lock();
 		listeners.forEach(i -> {
 			Listener<T> l = (Listener<T>) i.getListener();
 			l.listen(e);
 		});
+		lock.unlock();
 		return e;
 	}
 
@@ -39,18 +46,25 @@ public class EventProcess implements ListenerGroup {
 		if (listened == null) {
 			return null;
 		}
-		return listeners.stream().filter(e -> e.getListened().isAssignableFrom(listened)).sorted((a, b) -> {
-			int x = a.getPriority() - b.getPriority();
-			return x == 0 ? a.getName().compareTo(b.getName()) : x;
-		}).collect(Collectors.toList());
+		lock.lock();
+		List<ListenerItem<? extends Event>> l = listeners.stream()
+				.filter(e -> e.getListened().isAssignableFrom(listened)).sorted((a, b) -> {
+					int x = a.getPriority() - b.getPriority();
+					return x == 0 ? a.getName().compareTo(b.getName()) : x;
+				}).collect(Collectors.toList());
+		lock.unlock();
+		return l;
 	}
 
 	@Override
 	public List<ListenerItem<? extends Event>> listeners() {
-		return listeners.stream().sorted((a, b) -> {
+		lock.lock();
+		List<ListenerItem<? extends Event>> l = listeners.stream().sorted((a, b) -> {
 			int x = a.getPriority() - b.getPriority();
 			return x == 0 ? a.getName().compareTo(b.getName()) : x;
 		}).collect(Collectors.toList());
+		lock.unlock();
+		return l;
 	}
 
 	@Override
@@ -73,7 +87,9 @@ public class EventProcess implements ListenerGroup {
 		if (name == null || clazz == null || listener == null) {
 			throw new NullPointerException("addListener传入null");
 		}
+		lock.lock();
 		listeners.add(new ListenerItem<>(name, priority, clazz, listener));
+		lock.unlock();
 		listener.init(this);
 		return name;
 	}
@@ -83,12 +99,12 @@ public class EventProcess implements ListenerGroup {
 		if (name == null) {
 			return null;
 		}
+		lock.lock();
 		Optional<ListenerItem<? extends Event>> o = listeners.stream().filter(e -> e.getName().equals(name))
 				.findFirst();
-		if (o.isPresent()) {
-			return o.get();
-		}
-		return null;
+		lock.unlock();
+
+		return o.isPresent() ? o.get() : null;
 	}
 
 	@Override
@@ -96,19 +112,19 @@ public class EventProcess implements ListenerGroup {
 		if (listener == null) {
 			return null;
 		}
+		lock.lock();
 		Optional<ListenerItem<? extends Event>> o = listeners.stream().filter(e -> e.getListener().equals(listener))
 				.findFirst();
-
-		if (o.isPresent()) {
-			return o.get();
-		}
-		return null;
+		lock.unlock();
+		return o.isPresent() ? o.get() : null;
 	}
 
 	@Override
 	public ListenerItem<? extends Event> removeListener(String name) {
 		ListenerItem<? extends Event> l = getListener(name);
+		lock.lock();
 		listeners.remove(l);
+		lock.unlock();
 		l.getListener().destory(this);
 		return l;
 	}
@@ -116,7 +132,9 @@ public class EventProcess implements ListenerGroup {
 	@Override
 	public ListenerItem<? extends Event> removeListener(Listener<? extends Event> listener) {
 		ListenerItem<? extends Event> l = getListener(listener);
+		lock.lock();
 		listeners.remove(l);
+		lock.unlock();
 		l.getListener().destory(this);
 		return l;
 	}

@@ -51,6 +51,17 @@ public class Extra implements Extrable {
 	}
 
 	@Override
+	public Object remove(String key) {
+		return extras.remove(key);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T remove(String key, Class<T> T) {
+		return (T) extras.remove(key);
+	}
+
+	@Override
 	public Extrable extra() {
 		return this;
 	}

@@ -41,4 +41,12 @@ public interface Extrable {
 		return extra().getString(key);
 	}
 
+	default public Object remove(String key) {
+		return extra().remove(key);
+	}
+
+	default <T> T remove(String key, Class<T> T) {
+		return extra().remove(key, T);
+	}
+
 }

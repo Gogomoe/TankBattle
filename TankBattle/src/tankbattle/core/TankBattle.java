@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import tankbattle.core.battle.attack.AttackCoolDownEvent;
+import tankbattle.core.battle.attack.AttackCoolDownListener;
 import tankbattle.core.battle.attack.DamageEvent;
 import tankbattle.core.battle.attack.DamageListener;
 import tankbattle.core.battle.attack.DamagePropertyEvent;
@@ -118,6 +120,8 @@ public class TankBattle implements Extrable {
 		p.addListener(BulletHitListener.LID, Listener.NORMAL, BulletContactEvent.class, new BulletHitListener());
 		p.addListener(BulletDamageListener.LID, Listener.AFTER_EXECUTE, BulletDamageEvent.class,
 				new BulletDamageListener());
+		p.addListener(AttackCoolDownListener.LID, Listener.EXECUTE, AttackCoolDownEvent.class,
+				new AttackCoolDownListener());
 
 		p.addListener(PointTransListener.LID, Listener.AFTER_EXECUTE, EntityPaintEvent.class, new PointTransListener());
 

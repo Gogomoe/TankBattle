@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.attack.Assailable;
+import tankbattle.core.battle.attack.AttackCoolDownListener;
 import tankbattle.core.battle.tank.BulletFactory;
 import tankbattle.core.bullet.Bullet;
 import tankbattle.core.entity.EntityGroupEvent;
@@ -97,6 +98,7 @@ public class GameTest extends Application {
 			@Override
 			public void init() {
 				super.init();
+				this.put(AttackCoolDownListener.KEY_CD, 300);
 				BulletFactory bf = () -> {
 					Bullet b = new Xiaoyv(this, 20);
 					b.setPlayer(this.player());
