@@ -7,6 +7,7 @@ import java.awt.Image;
 import tankbattle.core.entity.Entity;
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
+import tankbattle.core.event.ListenerItem;
 import tankbattle.core.move.EntityMoveEvent;
 import tankbattle.core.others.ImageUtils;
 import tankbattle.core.others.ShapeUtils;
@@ -55,13 +56,13 @@ public class EntityMovePaintListener implements Listener<EntityPaintEvent> {
 	}
 
 	@Override
-	public void init(EventProcess process) {
+	public void init(EventProcess process, ListenerItem<EntityPaintEvent> item) {
 		ml = new MoveListener();
 		process.addListener(Listener.AFTER_EXECUTE, EntityMoveEvent.class, ml);
 	}
 
 	@Override
-	public void destory(EventProcess process) {
+	public void destory(EventProcess process, ListenerItem<EntityPaintEvent> item) {
 		process.removeListener(ml);
 	}
 
@@ -72,11 +73,13 @@ public class EntityMovePaintListener implements Listener<EntityPaintEvent> {
 		if (event.canceled() || event.executed() || node == null || !cls.isAssignableFrom(e.getClass())) {
 			return;
 		}
+		// 得到要绘制的实际宽高
 		int w = (int) ceil(ShapeUtils.getWidth(e.shape()) * swidth),
 				h = (int) ceil(ShapeUtils.getHeight(e.shape()) * sheight);
 		node.setWidth(w).setHeight(h);
 		node.setVector(new Vector(w * offx, h * offy));
 		Image image = null;
+		// 决定方向
 		if (e.towards().equals(Direction.NORTH)) {
 			image = north[i % north.length];
 		} else if (e.towards().equals(Direction.SOUTH)) {
@@ -96,6 +99,12 @@ public class EntityMovePaintListener implements Listener<EntityPaintEvent> {
 		return "EntityMovePaintListener:" + cls.getName();
 	}
 
+	/**
+	 * 实体移动后自动切换图片，实现动画效果的监听器<br>
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	private class MoveListener implements Listener<EntityMoveEvent> {
 
 		@Override

@@ -4,6 +4,13 @@ import javafx.scene.input.KeyCode;
 import tankbattle.core.event.Event;
 import tankbattle.core.view.View;
 
+/**
+ * 按键事件，可以获取到一些按键的基本属性<br>
+ * 推荐使用 KeyEvent.create(javafx.scene.input.KeyEvent, View)方法来创建按键事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class KeyEvent extends Event {
 
 	public static final int KEY_PRESSED = 0;
@@ -41,6 +48,17 @@ public class KeyEvent extends Event {
 		this.keyCode = code;
 		this.keyType = type;
 		this.view = view;
+	}
+
+	public static KeyEvent create(javafx.scene.input.KeyEvent event, View view) {
+		if (event.getEventType().equals(javafx.scene.input.KeyEvent.KEY_PRESSED)) {
+			return new KeyPressedEvent(event, view);
+		} else if (event.getEventType().equals(javafx.scene.input.KeyEvent.KEY_RELEASED)) {
+			return new KeyReleasedEvent(event, view);
+		} else if (event.getEventType().equals(javafx.scene.input.KeyEvent.KEY_TYPED)) {
+			return new KeyTypedEvent(event, view);
+		}
+		return new KeyEvent(event, view);
 	}
 
 	public KeyCode getKeyCode() {

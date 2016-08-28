@@ -4,6 +4,12 @@ import java.util.function.Consumer;
 
 import tankbattle.core.event.Listener;
 
+/**
+ * 时间监听器<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class TimeListener implements Listener<TimeEvent> {
 
 	private double next = 0;

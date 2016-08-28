@@ -10,17 +10,25 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 /**
- * 用于控制事件，包括发送事件、添加事件监听的事件控制器<br/>
+ * 用于控制事件，包括发送事件、添加事件监听的事件控制器<br>
+ * {@link #addListener}可以将一个监听器绑定在本事件进程上<br>
+ * 然后可以使用{@link #send(Event)}发送事件<br>
  * 
  * @author Gogo
  *
  */
-public class EventProcess implements ListenerGroup {
+public class EventProcess {
 
 	private Set<ListenerItem<? extends Event>> listeners = Collections
 			.synchronizedSet(new HashSet<ListenerItem<? extends Event>>());
 	private Lock lock = new ReentrantLock();
 
+	/**
+	 * 发送一个事件<br>
+	 * 
+	 * @param e
+	 * @return
+	 */
 	public <T extends Event> T send(T e) {
 		lock.lock();
 		listeners(e.getClass()).forEach(i -> {
@@ -32,6 +40,13 @@ public class EventProcess implements ListenerGroup {
 		return e;
 	}
 
+	/**
+	 * 向指定的 ListenerItem集合中发送一个事件
+	 * 
+	 * @param e
+	 * @param listeners
+	 * @return
+	 */
 	public <T extends Event> T send(T e, List<ListenerItem<T>> listeners) {
 		lock.lock();
 		listeners.forEach(i -> {
@@ -56,7 +71,6 @@ public class EventProcess implements ListenerGroup {
 		return l;
 	}
 
-	@Override
 	public List<ListenerItem<? extends Event>> listeners() {
 		lock.lock();
 		List<ListenerItem<? extends Event>> l = listeners.stream().sorted((a, b) -> {
@@ -67,34 +81,97 @@ public class EventProcess implements ListenerGroup {
 		return l;
 	}
 
-	@Override
+	/**
+	 * 添加一个具有默认优先级和名称的事件监听器<br>
+	 * 
+	 * @see #addListener(int, Class, Listener)
+	 * @see #addListener(String, Class, Listener)
+	 * @see #addListener(String, int, Class, Listener)
+	 * 
+	 * @param clazz
+	 *            需要监听的事件类型
+	 * @param listener
+	 *            监听器
+	 * @return
+	 */
 	public <T extends Event> String addListener(Class<T> clazz, Listener<T> listener) {
 		return addListener(listener.getClass().getName(), Listener.NORMAL, clazz, listener);
 	}
 
-	@Override
+	/**
+	 * 添加一个具有默认名称的事件监听器<br>
+	 * 
+	 * @see #addListener(Class, Listener)
+	 * @see #addListener(int, Class, Listener)
+	 * @see #addListener(String, int, Class, Listener)
+	 * 
+	 * @param priority
+	 *            优先级
+	 * @param clazz
+	 *            需要监听的事件类型
+	 * @param listener
+	 *            监听器
+	 * @return
+	 */
 	public <T extends Event> String addListener(int priority, Class<T> clazz, Listener<T> listener) {
 		return addListener(listener.getClass().getName(), priority, clazz, listener);
 	}
 
-	@Override
+	/**
+	 * 添加一个具有默认优先级的事件监听器<br>
+	 * 
+	 * @see #addListener(Class, Listener)
+	 * @see #addListener(String, Class, Listener)
+	 * @see #addListener(String, int, Class, Listener)
+	 * 
+	 * @param name
+	 *            名称
+	 * @param clazz
+	 *            需要监听的事件类型
+	 * @param listener
+	 *            监听器
+	 * @return
+	 */
 	public <T extends Event> String addListener(String name, Class<T> clazz, Listener<T> listener) {
 		return addListener(name, Listener.NORMAL, clazz, listener);
 	}
 
-	@Override
+	/**
+	 * 添加一个指定名称、优先级的事件监听器<br>
+	 * 
+	 * @see #addListener(Class, Listener)
+	 * @see #addListener(int, Class, Listener)
+	 * @see #addListener(String, Class, Listener)
+	 * 
+	 * @param name
+	 *            名称
+	 * @param priority
+	 *            优先级
+	 * @param clazz
+	 *            需要监听的事件类型
+	 * @param listener
+	 *            监听器
+	 * @return
+	 */
 	public <T extends Event> String addListener(String name, int priority, Class<T> clazz, Listener<T> listener) {
 		if (name == null || clazz == null || listener == null) {
 			throw new NullPointerException("addListener传入null");
 		}
 		lock.lock();
-		listeners.add(new ListenerItem<>(name, priority, clazz, listener));
+		ListenerItem<T> item = new ListenerItem<>(name, priority, clazz, listener);
+		listeners.add(item);
 		lock.unlock();
-		listener.init(this);
+		listener.init(this, item);
 		return name;
 	}
 
-	@Override
+	/**
+	 * 通过名称得到一个事件监听器
+	 * 
+	 * @param name
+	 *            名称
+	 * @return
+	 */
 	public ListenerItem<? extends Event> getListener(String name) {
 		if (name == null) {
 			return null;
@@ -107,7 +184,6 @@ public class EventProcess implements ListenerGroup {
 		return o.isPresent() ? o.get() : null;
 	}
 
-	@Override
 	public ListenerItem<? extends Event> getListener(Listener<? extends Event> listener) {
 		if (listener == null) {
 			return null;
@@ -119,23 +195,39 @@ public class EventProcess implements ListenerGroup {
 		return o.isPresent() ? o.get() : null;
 	}
 
-	@Override
+	/**
+	 * 通过事件名称移除该事件
+	 * 
+	 * @param name
+	 *            名称
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public ListenerItem<? extends Event> removeListener(String name) {
-		ListenerItem<? extends Event> l = getListener(name);
+		@SuppressWarnings("rawtypes")
+		ListenerItem l = getListener(name);
 		lock.lock();
 		listeners.remove(l);
 		lock.unlock();
-		l.getListener().destory(this);
+		l.getListener().destory(this, l);
 		return l;
 	}
 
-	@Override
+	/**
+	 * 移除事件监听器
+	 * 
+	 * @param listener
+	 *            需要被移除的事件监听器
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public ListenerItem<? extends Event> removeListener(Listener<? extends Event> listener) {
-		ListenerItem<? extends Event> l = getListener(listener);
+		@SuppressWarnings("rawtypes")
+		ListenerItem l = getListener(listener);
 		lock.lock();
 		listeners.remove(l);
 		lock.unlock();
-		l.getListener().destory(this);
+		l.getListener().destory(this, l);
 		return l;
 	}
 

@@ -8,6 +8,12 @@ import java.util.Set;
 
 import javafx.scene.input.KeyCode;
 
+/**
+ * 用于绑定某个键的功能<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class KeyManager {
 
 	private Map<KeyCode, Set<KeyOperation>> map = Collections.synchronizedMap(new HashMap<>());

@@ -3,6 +3,11 @@ package tankbattle.core.battle.tank;
 import tankbattle.core.battle.attack.AttackEvent;
 import tankbattle.core.tank.Tank;
 
+/**
+ * 坦克攻击事件
+ * @author Gogo
+ *
+ */
 public class TankAttackEvent extends AttackEvent {
 	private Tank attacker;
 

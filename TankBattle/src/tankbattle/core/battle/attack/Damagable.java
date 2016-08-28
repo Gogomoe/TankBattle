@@ -7,6 +7,7 @@ import tankbattle.core.others.Extrable;
 /**
  * 实现本接口的对象可造成伤害的<br/>
  * 本接口表示的是造成伤害，而不是表示能对敌人发动攻击<br/>
+ * 而{@link Assailable}表示的是能进行攻击的<br>
  * 
  * @author Gogo
  *

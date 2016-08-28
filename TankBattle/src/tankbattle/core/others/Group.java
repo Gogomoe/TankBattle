@@ -9,6 +9,13 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import tankbattle.core.control.Named;
 
+/**
+ * 本类是一个组，大多数情况下你能把它当做一个Set用<br>
+ * 
+ * @author Gogo
+ *
+ * @param <T>
+ */
 public class Group<T> {
 
 	protected Set<T> set = Collections.synchronizedSet(new HashSet<>());
@@ -50,6 +57,13 @@ public class Group<T> {
 		return b;
 	}
 
+	/**
+	 * 本类表示一个有名字的组，可以当做一个Map来用<br>
+	 * 
+	 * @author Gogo
+	 *
+	 * @param <T>
+	 */
 	public static class MapGroup<T extends Named> extends Group<T> {
 		public T get(String name) {
 			if (name == null) {

@@ -6,6 +6,12 @@ import java.util.Set;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
+/**
+ * 具有位置的图形<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class VectorShape extends Shape {
 
 	protected Shape shape;

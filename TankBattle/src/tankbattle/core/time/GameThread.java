@@ -3,7 +3,7 @@ package tankbattle.core.time;
 import tankbattle.core.TankBattle;
 
 /**
- * 只属于一个Game对象的线程,直接在Thread使用TankBattle.getGame()会出现错误，应使用GameThread
+ * 只属于一个Game对象的线程，应尽量使用GameThread，避免一个线程同时涉及多个游戏对象<br>
  * 
  * @author Gogo
  *

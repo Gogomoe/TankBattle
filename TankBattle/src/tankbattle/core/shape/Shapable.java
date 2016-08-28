@@ -4,6 +4,12 @@ import tankbattle.core.TankBattle;
 import tankbattle.core.others.Extrable;
 import tankbattle.core.position.Positionable;
 
+/**
+ * 实现本接口的类具有形状<br>
+ * 
+ * @author Gogo
+ *
+ */
 public interface Shapable extends Positionable, Extrable {
 
 	default public Shape shape() {

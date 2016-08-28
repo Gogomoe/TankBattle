@@ -7,12 +7,24 @@ import static java.lang.Math.sqrt;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
+/**
+ * 比较两个图形是否接触、包含的比较器
+ * 
+ * @author Gogo
+ *
+ */
 public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 
 	public boolean contains(T s1, S s2);
 
 	public boolean contacts(T s1, S s2);
 
+	/**
+	 * 矩形比较器
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	public static class RectComparator implements ShapeComparator<VRect, VRect> {
 
 		@Override
@@ -33,6 +45,12 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 
 	}
 
+	/**
+	 * 圆比较器
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	public static class CircleComparator implements ShapeComparator<VCircle, VCircle> {
 
 		@Override
@@ -49,6 +67,12 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 
 	}
 
+	/**
+	 * 圆和矩形比较器
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	public static class CircleRectComparator implements ShapeComparator<VCircle, VRect> {
 
 		@Override
@@ -83,6 +107,12 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 		}
 	}
 
+	/**
+	 * 矩形和圆比较器
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	public static class RectCircleComparator implements ShapeComparator<VRect, VCircle> {
 
 		@Override

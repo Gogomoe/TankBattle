@@ -2,6 +2,12 @@ package tankbattle.core.position;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 处理位置属性的事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class PositionPropertyEvent extends Event {
 
 	final public static int GET_POSTION = 0;

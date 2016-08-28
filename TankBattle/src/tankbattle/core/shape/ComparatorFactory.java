@@ -2,6 +2,12 @@ package tankbattle.core.shape;
 
 import java.util.HashMap;
 
+/**
+ * 创建图形比较器的工厂<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class ComparatorFactory {
 
 	public static ComparatorFactory factory = new ComparatorFactory();

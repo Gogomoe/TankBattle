@@ -3,6 +3,11 @@ package tankbattle.core.battle.attack;
 import tankbattle.core.battle.live.Livable;
 import tankbattle.core.event.Event;
 
+/**
+ * 造成伤害事件
+ * @author Gogo
+ *
+ */
 public class DamageEvent extends Event {
 
 	private Damagable damager;

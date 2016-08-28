@@ -2,7 +2,14 @@ package tankbattle.core.time;
 
 import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
+import tankbattle.core.event.ListenerItem;
 
+/**
+ * 指定时间后执行一次的事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class OnceTimeListener implements Listener<TimeEvent> {
 
 	private double time;
@@ -29,7 +36,7 @@ public class OnceTimeListener implements Listener<TimeEvent> {
 	}
 
 	@Override
-	public void init(EventProcess process) {
+	public void init(EventProcess process, ListenerItem<TimeEvent> item) {
 		this.process = process;
 	}
 

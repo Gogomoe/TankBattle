@@ -13,8 +13,18 @@ import tankbattle.core.shape.Rect;
 import tankbattle.core.shape.ShapePropertyEvent;
 import tankbattle.core.view.View;
 
+/**
+ * 炮弹是实现Damagable，没有生命值的实体<br>
+ * 大多数炮弹会在接触某些实体后对其造成伤害，然后炮弹本身消失<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class Bullet extends Entity implements Damagable {
 
+	/**
+	 * 默认的炮弹速度
+	 */
 	public static double BULLET_SPEED = 250;
 
 	public Bullet(Assailable attacker, int ATK) {

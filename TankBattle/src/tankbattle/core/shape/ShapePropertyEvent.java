@@ -2,6 +2,12 @@ package tankbattle.core.shape;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 形状属性事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class ShapePropertyEvent extends Event {
 
 	final public static int GET_SHAPE = 0;

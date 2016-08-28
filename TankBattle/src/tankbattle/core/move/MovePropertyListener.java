@@ -2,6 +2,12 @@ package tankbattle.core.move;
 
 import tankbattle.core.event.Listener;
 
+/**
+ * 用于操作与移动相关属性的监听器<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class MovePropertyListener implements Listener<MovePropertyEvent> {
 
 	final public static String LID = "TankBattle:MovePropertyListener";
@@ -14,7 +20,7 @@ public class MovePropertyListener implements Listener<MovePropertyEvent> {
 		if (event.canceled() || event.executed() || event.getMover() == null) {
 			return;
 		}
-
+		// 速度
 		Movable mover = event.getMover();
 		int code = event.code();
 		if ((code & MovePropertyEvent.SET_SPEED) == 0) {
@@ -25,6 +31,7 @@ public class MovePropertyListener implements Listener<MovePropertyEvent> {
 		} else {
 			mover.put(KEY_SPEED, event.getSpeed());
 		}
+		// 是否在移动
 		if ((code & MovePropertyEvent.SET_MOVING) == 0) {
 			if (!mover.contains(KEY_MOVING)) {
 				mover.put(KEY_MOVING, false);

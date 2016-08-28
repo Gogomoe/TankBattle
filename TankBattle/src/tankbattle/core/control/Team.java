@@ -4,6 +4,13 @@ import java.util.Set;
 
 import tankbattle.core.others.Group.MapGroup;
 
+/**
+ * 表示一个队伍<br>
+ * 队伍是有名字的，这个名字通常不重复<br>
+ * 队伍中有一些玩家，可以通过 players()获取<br>
+ * @author Gogo
+ *
+ */
 public class Team implements Named {
 
 	final public static Team system = new Team("System");

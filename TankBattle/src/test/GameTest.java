@@ -22,9 +22,6 @@ import tankbattle.core.event.Listener;
 import tankbattle.core.input.KeyEvent;
 import tankbattle.core.input.KeyOperateListener;
 import tankbattle.core.input.KeyOperation;
-import tankbattle.core.input.KeyPressedEvent;
-import tankbattle.core.input.KeyReleasedEvent;
-import tankbattle.core.input.KeyTypedEvent;
 import tankbattle.core.others.ImageUtils;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.paint.entity.EntityMovePaintListener;
@@ -126,13 +123,7 @@ public class GameTest extends Application {
 
 		v.getCanvas().addEventHandler(javafx.scene.input.KeyEvent.ANY, e -> {
 			TankBattle.setGame(game);
-			if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_PRESSED)) {
-				TankBattle.getGame().getProcess().send(new KeyPressedEvent(e, v));
-			} else if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_RELEASED)) {
-				TankBattle.getGame().getProcess().send(new KeyReleasedEvent(e, v));
-			} else if (e.getEventType().equals(javafx.scene.input.KeyEvent.KEY_TYPED)) {
-				TankBattle.getGame().getProcess().send(new KeyTypedEvent(e, v));
-			}
+			TankBattle.getGame().getProcess().send(KeyEvent.create(e, v));
 			TankBattle.setGame(null);
 		});
 		v.getKeyManager().add(KeyCode.UP, new KeyOperation("上", f -> {

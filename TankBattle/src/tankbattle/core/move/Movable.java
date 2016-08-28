@@ -3,6 +3,12 @@ package tankbattle.core.move;
 import tankbattle.core.TankBattle;
 import tankbattle.core.position.Positionable;
 
+/**
+ * 表示对象可以移动，也以为着对象一定是有位置的({@link Positionable})
+ * 
+ * @author Gogo
+ *
+ */
 public interface Movable extends Positionable {
 
 	default public double speed() {

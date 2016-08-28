@@ -2,6 +2,12 @@ package tankbattle.core.battle.attack;
 
 import tankbattle.core.event.Listener;
 
+/**
+ * 伤害属性监听器
+ * 
+ * @author Gogo
+ *
+ */
 public class DamagePropertyListener implements Listener<DamagePropertyEvent> {
 
 	final public static String LID = "TankBattle:DamagePropertyListener";
@@ -17,6 +23,7 @@ public class DamagePropertyListener implements Listener<DamagePropertyEvent> {
 		Damagable damager = event.getDamager();
 		int code = event.code();
 
+		// 攻击力
 		if ((code & DamagePropertyEvent.SET_ATK) == 0) {
 			if (!damager.contains(KEY_ATK)) {
 				damager.put(KEY_ATK, 0);
@@ -26,6 +33,7 @@ public class DamagePropertyListener implements Listener<DamagePropertyEvent> {
 			damager.put(KEY_ATK, event.getATK());
 		}
 
+		// 攻击者
 		if ((code & DamagePropertyEvent.SET_ATTACKER) == 0) {
 			event.setAttacker(damager.getObj(KEY_ATTACKER, Assailable.class));
 		} else {

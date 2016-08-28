@@ -3,6 +3,13 @@ package tankbattle.core.move.contact;
 import tankbattle.core.entity.Entity;
 import tankbattle.core.event.Event;
 
+/**
+ * 离开实体事件<br>
+ * 本事件会在一个实体离开另一个实体时产生<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class LeaveEntityEvent extends Event {
 
 	private Entity mover;

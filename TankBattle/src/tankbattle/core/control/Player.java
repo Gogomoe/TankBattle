@@ -2,8 +2,18 @@ package tankbattle.core.control;
 
 import tankbattle.core.TankBattle;
 
+/**
+ * 描述一个玩家对象<br>
+ * 玩家拥有一个名字，这个名字不应该重复<br>
+ * 玩家通常属于某一支队伍<br>
+ * @author Gogo
+ *
+ */
 public class Player implements Named {
 
+	/**
+	 * 默认的系统队伍
+	 */
 	final public static Player system = new Player("System", Team.system);
 
 	private String name;

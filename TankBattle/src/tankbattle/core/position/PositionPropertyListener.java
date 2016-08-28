@@ -2,6 +2,12 @@ package tankbattle.core.position;
 
 import tankbattle.core.event.Listener;
 
+/**
+ * 位置属性处理事件的监听器<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class PositionPropertyListener implements Listener<PositionPropertyEvent> {
 
 	final public static String LID = "TankBattle:PositionPropertyListener";
@@ -17,6 +23,7 @@ public class PositionPropertyListener implements Listener<PositionPropertyEvent>
 		}
 		Positionable poser = event.getPositionable();
 		int code = event.code();
+		// 位置
 		Point p = poser.getObj(KEY_POS, Point.class);
 		if (p == null) {
 			p = new Point();
@@ -27,11 +34,13 @@ public class PositionPropertyListener implements Listener<PositionPropertyEvent>
 		} else {
 			poser.put(KEY_POS, event.getPosition());
 		}
+		// 朝向
 		if ((code & PositionPropertyEvent.SET_TOWARDS) == 0) {
 			event.setTowards(poser.getObj(KEY_TOWARDS, Direction.class));
 		} else {
 			poser.put(KEY_TOWARDS, event.getTowards());
 		}
+		// 层(高度)
 		if ((code & PositionPropertyEvent.SET_LAYER) == 0) {
 			if (!poser.contains(KEY_LAYER)) {
 				poser.put(KEY_LAYER, Positionable.PLANE);

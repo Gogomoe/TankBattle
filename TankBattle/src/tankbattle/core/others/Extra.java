@@ -4,6 +4,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 本类是{@link Extrable}的默认实现方式<br>
+ * 
+ * @see Extrable
+ * @author Gogo
+ *
+ */
 public class Extra implements Extrable {
 
 	private Map<String, Object> extras = Collections.synchronizedMap(new HashMap<String, Object>());

@@ -2,6 +2,11 @@ package tankbattle.core.battle.attack;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 攻击事件
+ * @author Gogo
+ *
+ */
 public class AttackEvent extends Event {
 
 	private Assailable attacker;

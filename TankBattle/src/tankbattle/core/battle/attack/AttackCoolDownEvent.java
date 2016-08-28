@@ -2,6 +2,11 @@ package tankbattle.core.battle.attack;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 攻击后开始攻击冷却的事件
+ * @author Gogo
+ *
+ */
 public class AttackCoolDownEvent extends Event {
 
 	private Assailable attacker;

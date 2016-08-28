@@ -4,6 +4,12 @@ import tankbattle.core.event.Event;
 import tankbattle.core.view.PaintNode;
 import tankbattle.core.view.View;
 
+/**
+ * 绘制事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class PaintEvent extends Event {
 
 	private Paintable paintable;

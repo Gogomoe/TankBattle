@@ -2,6 +2,12 @@ package tankbattle.core.battle.live;
 
 import tankbattle.core.event.Listener;
 
+/**
+ * 实体生存属性监听器
+ * 
+ * @author Gogo
+ *
+ */
 public class LivePropertyListener implements Listener<LivePropertyEvent> {
 
 	final public static String LID = "TankBattle:LivePropertyListener";
@@ -16,6 +22,7 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 			return;
 		}
 
+		// 生命值
 		int code = event.code();
 		Livable liver = event.getLiver();
 		if ((code & LivePropertyEvent.SET_HP) == 0) {
@@ -26,6 +33,7 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 		} else {
 			liver.put(KEY_HP, event.getHP());
 		}
+		// 最大生命值
 		if ((code & LivePropertyEvent.SET_MAXHP) == 0) {
 			if (!liver.contains(KEY_MAXHP)) {
 				liver.put(KEY_MAXHP, 0);
@@ -34,6 +42,7 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 		} else {
 			liver.put(KEY_MAXHP, event.getMaxHP());
 		}
+		// 防御力
 		if ((code & LivePropertyEvent.SET_DEF) == 0) {
 			if (!liver.contains(KEY_DEF)) {
 				liver.put(KEY_DEF, 0);
@@ -42,6 +51,7 @@ public class LivePropertyListener implements Listener<LivePropertyEvent> {
 		} else {
 			liver.put(KEY_DEF, event.getDEF());
 		}
+		// 是否生存
 		if ((code & LivePropertyEvent.SET_LIVE) == 0) {
 			if (!liver.contains(KEY_LIVE)) {
 				liver.put(KEY_LIVE, false);

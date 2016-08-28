@@ -6,6 +6,13 @@ import java.util.Set;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
+/**
+ * 表示一个矩形<br>
+ * 具有宽、高属性<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class Rect extends Shape {
 
 	private double width, height;

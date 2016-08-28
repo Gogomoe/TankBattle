@@ -11,6 +11,12 @@ import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.position.Vector;
 import tankbattle.core.view.EntityNode;
 
+/**
+ * 材质丢失时绘制的监听器，它会绘制默认材质<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class MaterialLostListener implements Listener<EntityPaintEvent> {
 
 	public static final String LID = "TankBattle:MaterialLostListener";
@@ -31,6 +37,7 @@ public class MaterialLostListener implements Listener<EntityPaintEvent> {
 		if (event.executed() || event.canceled() || node == null || node.getImage() != null) {
 			return;
 		}
+		// 绘制默认材质
 		double w = ShapeUtils.getWidth(event.getPaintable().shape()),
 				h = ShapeUtils.getHeight(event.getPaintable().shape());
 		node.setWidth(w).setHeight(h);

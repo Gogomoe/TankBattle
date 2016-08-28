@@ -6,8 +6,20 @@ import tankbattle.core.shape.Shape;
 import tankbattle.core.shape.VCircle;
 import tankbattle.core.shape.VRect;
 
+/**
+ * 本类封装了一些处理形状的常用方法<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class ShapeUtils {
 
+	/**
+	 * 得到能包裹住形状的最小宽度
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public static double getWidth(Shape s) {
 		if (s instanceof Rect) {
 			return ((Rect) s).getWidth();
@@ -24,6 +36,12 @@ public class ShapeUtils {
 		return 0;
 	}
 
+	/**
+	 * 得到能包裹住形状的最小高度
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public static double getHeight(Shape s) {
 		if (s instanceof Rect) {
 			return ((Rect) s).getHeight();

@@ -3,6 +3,12 @@ package tankbattle.core.move;
 import tankbattle.core.event.Event;
 import tankbattle.core.position.Vector;
 
+/**
+ * 移动时产生的事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class MoveEvent extends Event {
 
 	private Movable mover;

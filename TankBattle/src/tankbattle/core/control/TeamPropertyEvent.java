@@ -2,6 +2,11 @@ package tankbattle.core.control;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 队伍属性事件
+ * @author Gogo
+ *
+ */
 public class TeamPropertyEvent extends Event {
 
 	final public static int GET_TEAM = 0;

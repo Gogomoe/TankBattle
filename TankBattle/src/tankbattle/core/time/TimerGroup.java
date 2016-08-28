@@ -12,6 +12,13 @@ import tankbattle.core.event.EventProcess;
 import tankbattle.core.event.Listener;
 import tankbattle.core.event.ListenerItem;
 
+/**
+ * 计时器组<br>
+ * 可以向本类加入时间监听器<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class TimerGroup {
 
 	private Map<String, TimerGroup> timers = Collections.synchronizedMap(new HashMap<>());

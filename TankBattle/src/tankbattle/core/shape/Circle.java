@@ -8,6 +8,12 @@ import java.util.Set;
 
 import tankbattle.core.position.Point;
 
+/**
+ * 表示一个圆形，具有半径<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class Circle extends Shape {
 
 	private double radius;

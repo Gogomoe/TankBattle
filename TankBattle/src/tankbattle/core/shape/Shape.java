@@ -6,6 +6,12 @@ import java.util.Set;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 
+/**
+ * 描述一个形状<br>
+ * 
+ * @author Gogo
+ *
+ */
 public abstract class Shape {
 
 	protected double accuracy = 1;

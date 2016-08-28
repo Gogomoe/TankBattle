@@ -24,6 +24,15 @@ import tankbattle.core.shape.ShapePropertyEvent;
 import tankbattle.core.view.EntityNode;
 import tankbattle.core.view.View;
 
+/**
+ * 实体是游戏中最常见的单元<br>
+ * 坦克、炮弹、方块都继承于实体<br>
+ * 实体具有位置、可以移动(部分如方块除外)、具有生命(部分如炮弹除外)、具有形状、可被控制、可绘画在地图上<br>
+ * 实体还可以进行扩展，可以储存一些用户数据<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class Entity implements Movable, Livable, Shapable, Extrable, Controller, Paintable {
 
 	private Extra extra = new Extra();
@@ -50,10 +59,10 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 	public void init() {
 		TankBattle.getGame().getProcess()
 				.send(new LivePropertyEvent(this).setHP(ENTITY_HP).setDEF(ENTITY_DEF).setLive(ENTITY_LIVE)
-						.setMaxHP(ENTITY_MAXHP).setCode(LivePropertyEvent.SET_HP + LivePropertyEvent.SET_MAXHP
-								+ LivePropertyEvent.SET_DEF + LivePropertyEvent.SET_LIVE));
+						.setMaxHP(ENTITY_MAXHP).setCode(LivePropertyEvent.SET_HP | LivePropertyEvent.SET_MAXHP
+								| LivePropertyEvent.SET_DEF | LivePropertyEvent.SET_LIVE));
 		TankBattle.getGame().getProcess().send(new PositionPropertyEvent(this).setTowards(ENTITY_TOWARDS)
-				.setLayer(ENTITY_LAYER).setCode(PositionPropertyEvent.SET_TOWARDS + PositionPropertyEvent.SET_LAYER));
+				.setLayer(ENTITY_LAYER).setCode(PositionPropertyEvent.SET_TOWARDS | PositionPropertyEvent.SET_LAYER));
 		TankBattle.getGame().getProcess()
 				.send(new MovePropertyEvent(this).setSpeed(ENTITY_SPEED).setCode(MovePropertyEvent.SET_SPEED));
 

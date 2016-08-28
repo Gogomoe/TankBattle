@@ -12,6 +12,13 @@ import tankbattle.core.shape.VectorShape;
 
 public class EntityMoveListener {
 
+	/**
+	 * 实体移动后，如果发生碰撞，则在移动前产生碰撞事件的监听器<br>
+	 * 详情见 {@link CollideEvent}
+	 * 
+	 * @author Gogo
+	 *
+	 */
 	public static class ConllidListener implements Listener<EntityMoveEvent> {
 
 		final public static String LID = "TankBattle:EntityMoveListener:ConllidListener";
@@ -27,7 +34,7 @@ public class EntityMoveListener {
 			VectorShape vshape = mover.vshape();
 			Set<Entity> post = TankBattle.getGame().getEntityGroup()
 					.getContact(vshape.toVectorShape(vshape.getVector().add(event.getVector())));
-			
+
 			for (Entity entity : post.stream().filter(f -> !pre.contains(f)).collect(Collectors.toSet())) {
 				CollideEvent e = TankBattle.getGame().getProcess().send(new CollideEvent(mover, entity));
 				if (!e.canPass()) {

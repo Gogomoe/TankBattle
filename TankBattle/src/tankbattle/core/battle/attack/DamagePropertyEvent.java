@@ -2,6 +2,11 @@ package tankbattle.core.battle.attack;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 伤害属性事件，用于获得或修改与伤害有关的属性
+ * @author Gogo
+ *
+ */
 public class DamagePropertyEvent extends Event {
 
 	final public static int GET_ATK = 0;

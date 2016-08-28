@@ -2,6 +2,13 @@ package tankbattle.core.move;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 用于操作与移动有关属性的事件<br>
+ * 如Speed(移动速度)，Moving(是否在主动移动)<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class MovePropertyEvent extends Event {
 
 	final public static int GET_SPEED = 0;

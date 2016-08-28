@@ -4,6 +4,12 @@ import tankbattle.core.entity.Entity;
 import tankbattle.core.view.EntityNode;
 import tankbattle.core.view.View;
 
+/**
+ * 绘制实体的事件<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class EntityPaintEvent extends PaintEvent {
 
 	public EntityPaintEvent(Entity paintable, View view) {

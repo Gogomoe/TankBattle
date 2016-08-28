@@ -2,6 +2,11 @@ package tankbattle.core.battle.live;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 实体生存属性有关的监听器，可获取或设置以下属性:生命(HP)，最大生命(MaxHP)，防御力(DEF)，是否生存(Live)
+ * @author Gogo
+ *
+ */
 public class LivePropertyEvent extends Event {
 
 	final public static int GET_HP = 0;

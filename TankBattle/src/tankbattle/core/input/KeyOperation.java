@@ -2,6 +2,12 @@ package tankbattle.core.input;
 
 import java.util.function.Consumer;
 
+/**
+ * 用于表示某个按键的功能<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class KeyOperation {
 
 	private String name;

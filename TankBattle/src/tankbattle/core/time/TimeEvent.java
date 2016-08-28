@@ -2,6 +2,12 @@ package tankbattle.core.time;
 
 import tankbattle.core.event.Event;
 
+/**
+ * 表示一个时间经过时间<br>
+ * 
+ * @author Gogo
+ *
+ */
 public class TimeEvent extends Event {
 
 	private int total;
