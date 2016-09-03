@@ -30,7 +30,7 @@ import tankbattle.core.position.Direction;
 import tankbattle.core.tank.Tank;
 import tankbattle.core.time.TimeListener;
 import tankbattle.core.time.TimerGroup;
-import tankbattle.core.view.View;
+import tankbattle.core.view.CanvasView;
 
 public class GameTest extends Application {
 
@@ -40,7 +40,7 @@ public class GameTest extends Application {
 		Group root = new Group();
 		Scene scene = new Scene(root, 600, 480);
 
-		View v = new View(600, 480);
+		CanvasView v = new CanvasView(600, 480);
 
 		root.getChildren().add(v.getCanvas());
 

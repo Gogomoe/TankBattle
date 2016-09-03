@@ -10,6 +10,7 @@ import tankbattle.core.view.View;
 /**
  * 地图上的一个方块<br>
  * 绝大多数的方块是不可移动的，部分方块可能会与玩家产生交互<br>
+ * 
  * @author Gogo
  *
  */
