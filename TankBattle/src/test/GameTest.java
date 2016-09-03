@@ -22,11 +22,11 @@ import tankbattle.core.event.Listener;
 import tankbattle.core.input.KeyEvent;
 import tankbattle.core.input.KeyOperateListener;
 import tankbattle.core.input.KeyOperation;
+import tankbattle.core.input.base.EntityKeyManager;
 import tankbattle.core.others.ImageUtils;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.paint.entity.EntityMovePaintListener;
 import tankbattle.core.paint.entity.MaterialLostListener;
-import tankbattle.core.position.Direction;
 import tankbattle.core.tank.Tank;
 import tankbattle.core.time.TimeListener;
 import tankbattle.core.time.TimerGroup;
@@ -126,38 +126,15 @@ public class GameTest extends Application {
 			TankBattle.getGame().getProcess().send(KeyEvent.create(e, v));
 			TankBattle.setGame(null);
 		});
-		v.getKeyManager().add(KeyCode.UP, new KeyOperation("上", f -> {
-			entity.setTowards(Direction.NORTH);
-			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
-				entity.setMoving(true);
-			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
-				entity.setMoving(false);
-			}
-		}));
-		v.getKeyManager().add(KeyCode.DOWN, new KeyOperation("下", f -> {
-			entity.setTowards(Direction.SOUTH);
-			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
-				entity.setMoving(true);
-			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
-				entity.setMoving(false);
-			}
-		}));
-		v.getKeyManager().add(KeyCode.LEFT, new KeyOperation("左", f -> {
-			entity.setTowards(Direction.WEST);
-			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
-				entity.setMoving(true);
-			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
-				entity.setMoving(false);
-			}
-		}));
-		v.getKeyManager().add(KeyCode.RIGHT, new KeyOperation("右", f -> {
-			entity.setTowards(Direction.EAST);
-			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
-				entity.setMoving(true);
-			} else if (f.getKeyType() == KeyEvent.KEY_RELEASED) {
-				entity.setMoving(false);
-			}
-		}));
+
+		EntityKeyManager entityKeyManager = new EntityKeyManager(v.getKeyManager());
+		entityKeyManager.setEntity(entity);
+		// 更改移动按键
+		// entityKeyManager.bindKey(Direction.NORTH, KeyCode.W);
+		// entityKeyManager.bindKey(Direction.SOUTH, KeyCode.S);
+		// entityKeyManager.bindKey(Direction.EAST, KeyCode.D);
+		// entityKeyManager.bindKey(Direction.WEST, KeyCode.A);
+
 		v.getKeyManager().add(KeyCode.SPACE, new KeyOperation("发射", f -> {
 			if (f.getKeyType() == KeyEvent.KEY_PRESSED) {
 				entity.attack();
