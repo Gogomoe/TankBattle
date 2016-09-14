@@ -3,8 +3,8 @@ package tankbattle.core.position;
 import static java.lang.Math.rint;
 
 /**
- * 用于表示平面上位置的一个点<br/>
- * 具有X和Y两个坐标<br/>
+ * 用于表示平面上位置的一个点<br>
+ * 具有X和Y两个坐标<br>
  *
  * @author Gogo
  */

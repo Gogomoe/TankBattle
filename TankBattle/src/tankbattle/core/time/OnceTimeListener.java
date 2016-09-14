@@ -6,6 +6,7 @@ import tankbattle.core.event.ListenerItem;
 
 /**
  * 指定时间后执行一次的事件<br>
+ * 执行完毕后，会自动移除此监听器<br>
  * 
  * @author Gogo
  *

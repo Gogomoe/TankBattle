@@ -4,7 +4,7 @@ package tankbattle.core.others;
  * 基本本类的类均可储存用户自定义属性<br>
  * <br>
  * 可以使用{@link #put(String, Object)}方法储存属性 <br>
- * 使用{@link #getObj(String)}、{@link #getInt(String)、{@link #getString(String)}等方法储存属性<br>
+ * 使用{@link #getObj(String)}、{@link #getInt(String)}、{@link #getString(String)}等方法储存属性<br>
  * <br>
  * 如果想要一个新的类实现本接口，最好的方法如下<br>
  * class A implements Extrable {<br>

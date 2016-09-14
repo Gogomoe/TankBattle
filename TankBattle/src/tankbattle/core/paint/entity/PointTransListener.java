@@ -10,11 +10,10 @@ import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 import tankbattle.core.view.EntityNode;
-import tankbattle.core.view.PaintNode;
 import tankbattle.core.view.View;
 
 /**
- * 用于实体位置转换的监听器，能将{@link EntityNode#Vector}转换为{@link PaintNode#Point}<br>
+ * 用于实体位置转换的监听器，能将EntityNode中表示偏差量的Vector转换为PaintNode中表示位置的Point<br>
  * 
  * @author Gogo
  *

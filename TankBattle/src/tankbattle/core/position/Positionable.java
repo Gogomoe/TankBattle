@@ -4,8 +4,8 @@ import tankbattle.core.TankBattle;
 import tankbattle.core.others.Extrable;
 
 /**
- * 实现本接口表示该对象有位置<br/>
- * 对象应该具有X轴位置、Y轴位置、高度等属性<br/>
+ * 实现本接口表示该对象有位置<br>
+ * 对象应该具有X轴位置、Y轴位置、高度等属性<br>
  *
  * @author Gogo
  */

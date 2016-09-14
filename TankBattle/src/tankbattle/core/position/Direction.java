@@ -1,8 +1,8 @@
 package tankbattle.core.position;
 
 /**
- * 用于表示地图中四个方向<br/>
- * 上下左右 分别对应 北南西东<br/>
+ * 用于表示地图中四个方向<br>
+ * 上下左右 分别对应 北南西东<br>
  * 
  * @author Gogo
  *

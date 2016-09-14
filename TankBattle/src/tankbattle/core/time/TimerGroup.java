@@ -15,6 +15,14 @@ import tankbattle.core.event.ListenerItem;
 /**
  * 计时器组<br>
  * 可以向本类加入时间监听器<br>
+ * 用法类似于{@link EventProcess}在此类中只能添加的监听TimeEvent的监听器，只能发送TimeEvent事件<br>
+ * <br>
+ * 可以通过{@link #putTimer}为一个计时器添加一个子计时器<br>
+ * 当开始或暂停父计时器时，子计时器也会做响应操作<br>
+ * <br>
+ * 通过{@link #setChange}可以设置本计时器的偏差量<br>
+ * 例如 change = 2 时，父计时器经过1秒，本计时器会经过两秒<br>
+ * 可以通过{@link #createThread()}为本计时器创建单独的一个线程，但此操作也会时change失去效果<br>
  * 
  * @author Gogo
  *
@@ -48,8 +56,8 @@ public class TimerGroup {
 	}
 
 	/**
-	 * 该计时器经过一段时间<br/>
-	 * 如果达到计时器的计时,则会向所有该计时器上的监听器发送 TimeEvent 事件<br/>
+	 * 该计时器经过一段时间<br>
+	 * 如果达到计时器的计时,则会向所有该计时器上的监听器发送 TimeEvent 事件<br>
 	 * 
 	 * @param time
 	 */
@@ -78,8 +86,8 @@ public class TimerGroup {
 	}
 
 	/**
-	 * 为本计时器单独创建线程</br>
-	 * 该操作会时本计时器脱离父计时器对时间的调整</br>
+	 * 为本计时器单独创建线程<br>
+	 * 该操作会时本计时器脱离父计时器对时间的调整<br>
 	 * 
 	 * @return
 	 */

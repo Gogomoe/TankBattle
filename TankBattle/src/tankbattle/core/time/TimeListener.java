@@ -6,6 +6,7 @@ import tankbattle.core.event.Listener;
 
 /**
  * 时间监听器<br>
+ * 封装了一些一个简单的定时器监听器，每隔一段时间执行一次<br>
  * 
  * @author Gogo
  *

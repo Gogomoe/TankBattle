@@ -5,8 +5,8 @@ import tankbattle.core.battle.live.LivePropertyEvent;
 import tankbattle.core.others.Extrable;
 
 /**
- * 表示对象可生存（有生命值）<br/>
- * 这也意味着对象可被摧毁<br/>
+ * 表示对象可生存（有生命值）<br>
+ * 这也意味着对象可被摧毁<brE>
  * 
  * @author Gogo
  *
