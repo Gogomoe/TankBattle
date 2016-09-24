@@ -1,55 +1,51 @@
 package tankbattle.core.battle.live;
 
-import tankbattle.core.TankBattle;
-import tankbattle.core.battle.live.LivePropertyEvent;
 import tankbattle.core.others.Extrable;
 
 /**
  * 表示对象可生存（有生命值）<br>
- * 这也意味着对象可被摧毁<brE>
+ * 这也意味着对象可被摧毁<br>
+ * <br>
+ * 本类具有默认实现方式{@link Liver}，实现本类可以参见{@link Extrable}的实现方式<br>
  * 
+ * @see Liver
  * @author Gogo
  *
  */
-public interface Livable extends Extrable {
+public interface Livable {
+
+	public Livable liver();
 
 	default public boolean isLive() {
-		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).isLive();
+		return liver().isLive();
 	}
 
 	default public int getHP() {
-		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getHP();
+		return liver().getHP();
 	}
 
 	default public int getMaxHP() {
-		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getMaxHP();
+		return liver().getMaxHP();
 	}
 
 	default public int getDEF() {
-		return TankBattle.getGame().getProcess().send(new LivePropertyEvent(this)).getDEF();
+		return liver().getDEF();
 	}
 
 	default public Livable setHP(int HP) {
-		TankBattle.getGame().getProcess().send(new LivePropertyEvent(this).setHP(HP).setCode(LivePropertyEvent.SET_HP));
-		return this;
+		return liver().setHP(HP);
 	}
 
 	default public Livable setDEF(int DEF) {
-		TankBattle.getGame().getProcess()
-				.send(new LivePropertyEvent(this).setDEF(DEF).setCode(LivePropertyEvent.SET_DEF));
-		return this;
+		return liver().setDEF(DEF);
 	}
 
 	default public Livable setMaxHP(int MaxHP) {
-		TankBattle.getGame().getProcess()
-				.send(new LivePropertyEvent(this).setMaxHP(MaxHP).setCode(LivePropertyEvent.SET_MAXHP));
-		return this;
+		return liver().setMaxHP(MaxHP);
 	}
 
 	default public Livable setLive(boolean live) {
-		TankBattle.getGame().getProcess()
-				.send(new LivePropertyEvent(this).setLive(live).setCode(LivePropertyEvent.SET_LIVE));
-		return this;
+		return liver().setLive(live);
 	}
 
 }

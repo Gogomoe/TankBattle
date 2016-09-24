@@ -8,11 +8,11 @@ package tankbattle.core.others;
  * <br>
  * 如果想要一个新的类实现本接口，最好的方法如下<br>
  * class A implements Extrable {<br>
- * private Extra extra = new Extra();<br>
- * public Extrable extra() {<br>
- * return extra;<br>
- * }<br>
- * 
+ * <span style="padding-left:2em">private Extra extra = new Extra();</span><br>
+ * <span style="padding-left:2em">public Extrable extra() {</span><br>
+ * <span style="padding-left:4em">return extra;</span><br>
+ * <span style="padding-left:2em">}</span><br>
+ * } </br>
  * @author Gogo
  */
 public interface Extrable {

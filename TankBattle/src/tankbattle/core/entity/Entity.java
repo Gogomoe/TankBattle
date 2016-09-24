@@ -5,22 +5,24 @@ import java.util.Map;
 
 import tankbattle.core.TankBattle;
 import tankbattle.core.battle.live.Livable;
-import tankbattle.core.battle.live.LivePropertyEvent;
+import tankbattle.core.battle.live.Liver;
 import tankbattle.core.control.Controller;
 import tankbattle.core.control.Player;
 import tankbattle.core.control.PlayerPropertyEvent;
 import tankbattle.core.move.EntityMoveEvent;
 import tankbattle.core.move.Movable;
-import tankbattle.core.move.MovePropertyEvent;
+import tankbattle.core.move.Mover;
 import tankbattle.core.others.Extra;
 import tankbattle.core.others.Extrable;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.paint.Paintable;
 import tankbattle.core.position.Direction;
-import tankbattle.core.position.PositionPropertyEvent;
+import tankbattle.core.position.Point;
+import tankbattle.core.position.Positionable;
+import tankbattle.core.position.Positioner;
 import tankbattle.core.shape.Rect;
 import tankbattle.core.shape.Shapable;
-import tankbattle.core.shape.ShapePropertyEvent;
+import tankbattle.core.shape.Shaper;
 import tankbattle.core.view.EntityNode;
 import tankbattle.core.view.View;
 
@@ -33,7 +35,7 @@ import tankbattle.core.view.View;
  * @author Gogo
  *
  */
-public class Entity implements Movable, Livable, Shapable, Extrable, Controller, Paintable {
+public class Entity implements Positionable, Movable, Livable, Shapable, Extrable, Controller, Paintable {
 
 	private Extra extra = new Extra();
 
@@ -57,20 +59,13 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 	}
 
 	public void init() {
-		TankBattle.getGame().getProcess()
-				.send(new LivePropertyEvent(this).setHP(ENTITY_HP).setDEF(ENTITY_DEF).setLive(ENTITY_LIVE)
-						.setMaxHP(ENTITY_MAXHP).setCode(LivePropertyEvent.SET_HP | LivePropertyEvent.SET_MAXHP
-								| LivePropertyEvent.SET_DEF | LivePropertyEvent.SET_LIVE));
-		TankBattle.getGame().getProcess().send(new PositionPropertyEvent(this).setTowards(ENTITY_TOWARDS)
-				.setLayer(ENTITY_LAYER).setCode(PositionPropertyEvent.SET_TOWARDS | PositionPropertyEvent.SET_LAYER));
-		TankBattle.getGame().getProcess()
-				.send(new MovePropertyEvent(this).setSpeed(ENTITY_SPEED).setCode(MovePropertyEvent.SET_SPEED));
+		this.setHP(ENTITY_HP).setDEF(ENTITY_DEF).setLive(ENTITY_LIVE).setMaxHP(ENTITY_MAXHP);
+		this.setPosition(new Point()).setTowards(Direction.SOUTH).setLayer(ENTITY_LAYER);
+		this.setSpeed(ENTITY_SPEED).setMoving(false);
+		this.setShape(new Rect(50, 50));
 
 		TankBattle.getGame().getProcess()
 				.send(new PlayerPropertyEvent(this).setPlayer(ENTITY_PLAYER).setCode(PlayerPropertyEvent.SET_PLAYER));
-
-		TankBattle.getGame().getProcess()
-				.send(new ShapePropertyEvent(this).setShape(new Rect(50, 50)).setCode(ShapePropertyEvent.SET_SHAPE));
 
 		this.put(KEY_NODE, new HashMap<View, EntityNode>());
 	}
@@ -82,6 +77,34 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 	@Override
 	public Extrable extra() {
 		return extra;
+	}
+
+	private final Positionable positioner = new Positioner();
+
+	@Override
+	public Positionable positioner() {
+		return positioner;
+	}
+
+	private final Movable mover = new Mover(positioner);
+
+	@Override
+	public Movable mover() {
+		return mover;
+	}
+
+	private final Shapable shaper = new Shaper(positioner);
+
+	@Override
+	public Shapable shaper() {
+		return shaper;
+	}
+
+	private final Livable liver = new Liver();
+
+	@Override
+	public Livable liver() {
+		return liver;
 	}
 
 	@Override
@@ -106,5 +129,4 @@ public class Entity implements Movable, Livable, Shapable, Extrable, Controller,
 		}
 		return map.get(view);
 	}
-
 }

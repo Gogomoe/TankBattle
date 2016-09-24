@@ -76,7 +76,6 @@ public class GameTest extends Application {
 
 			@Override
 			public void staticInit() {
-				super.staticInit();
 				try {
 					BufferedImage[] is = ImageUtils
 							.cutImage(ImageIO.read(getClass().getResource("../tankbattle/images/tanks/毛玉.png")), 4, 4);

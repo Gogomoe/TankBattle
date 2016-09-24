@@ -13,8 +13,6 @@ import tankbattle.core.battle.attack.DamagePropertyListener;
 import tankbattle.core.battle.bullet.BulletDamageEvent;
 import tankbattle.core.battle.bullet.BulletDamageListener;
 import tankbattle.core.battle.bullet.BulletHitListener;
-import tankbattle.core.battle.live.LivePropertyEvent;
-import tankbattle.core.battle.live.LivePropertyListener;
 import tankbattle.core.battle.tank.TankAttackEvent;
 import tankbattle.core.battle.tank.TankAttackListener;
 import tankbattle.core.control.Player;
@@ -32,8 +30,6 @@ import tankbattle.core.move.EntityMoveEvent;
 import tankbattle.core.move.EntityMoveListener;
 import tankbattle.core.move.MoveEvent;
 import tankbattle.core.move.MoveListener;
-import tankbattle.core.move.MovePropertyEvent;
-import tankbattle.core.move.MovePropertyListener;
 import tankbattle.core.move.collide.BaseCollideListener;
 import tankbattle.core.move.collide.CollideEvent;
 import tankbattle.core.move.contact.BulletContactEvent;
@@ -43,10 +39,6 @@ import tankbattle.core.others.Extrable;
 import tankbattle.core.others.Group.MapGroup;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.paint.entity.PointTransListener;
-import tankbattle.core.position.PositionPropertyEvent;
-import tankbattle.core.position.PositionPropertyListener;
-import tankbattle.core.shape.ShapePropertyEvent;
-import tankbattle.core.shape.ShapePropertyListener;
 import tankbattle.core.time.TimerGroup;
 
 /**
@@ -159,15 +151,7 @@ public class TankBattle implements Extrable {
 		/* 实体管理 */
 		p.addListener(EntityGroupListener.LID, Listener.EXECUTE, EntityGroupEvent.class, new EntityGroupListener());
 
-		/* 基本属性管理 */
-		p.addListener(LivePropertyListener.LID, Listener.EXECUTE, LivePropertyEvent.class, new LivePropertyListener());
-		p.addListener(PositionPropertyListener.LID, Listener.EXECUTE, PositionPropertyEvent.class,
-				new PositionPropertyListener());
-		p.addListener(ShapePropertyListener.LID, Listener.EXECUTE, ShapePropertyEvent.class,
-				new ShapePropertyListener());
-
 		/* 移动以及后续事件(碰撞)管理 */
-		p.addListener(MovePropertyListener.LID, Listener.EXECUTE, MovePropertyEvent.class, new MovePropertyListener());
 		p.addListener(MoveListener.LID, Listener.EXECUTE, MoveEvent.class, new MoveListener());
 		p.addListener(EntityMoveListener.ConllidListener.LID, 8000, EntityMoveEvent.class,
 				new EntityMoveListener.ConllidListener());

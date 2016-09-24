@@ -1,34 +1,38 @@
 package tankbattle.core.move;
 
 import tankbattle.core.TankBattle;
+import tankbattle.core.others.Extrable;
 import tankbattle.core.position.Positionable;
 
 /**
- * 表示对象可以移动，也以为着对象一定是有位置的({@link Positionable})
+ * 表示对象可以移动，也以为着对象一定是有位置的({@link Positionable})<br>
+ * <br>
+ * 本类具有默认实现方式{@link Mover}，实现本类可以参见{@link Extrable}的实现方式<br>
  * 
+ * @see Mover
  * @author Gogo
  *
  */
-public interface Movable extends Positionable {
+public interface Movable {
+
+	public Movable mover();
+
+	public Positionable positioner();
 
 	default public double speed() {
-		return TankBattle.getGame().getProcess().send(new MovePropertyEvent(this)).getSpeed();
+		return mover().speed();
 	}
 
 	default public Movable setSpeed(double speed) {
-		TankBattle.getGame().getProcess()
-				.send(new MovePropertyEvent(this, MovePropertyEvent.SET_SPEED).setSpeed(speed));
-		return this;
+		return mover().setSpeed(speed);
 	}
 
 	default public boolean isMoving() {
-		return TankBattle.getGame().getProcess().send(new MovePropertyEvent(this)).isMoving();
+		return mover().isMoving();
 	}
 
 	default public Movable setMoving(boolean moving) {
-		TankBattle.getGame().getProcess()
-				.send(new MovePropertyEvent(this, MovePropertyEvent.SET_MOVING).setMoving(moving));
-		return this;
+		return mover().setMoving(moving);
 	}
 
 	default public void move() {

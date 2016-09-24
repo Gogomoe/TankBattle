@@ -7,10 +7,8 @@ import tankbattle.core.battle.bullet.BulletDamageEvent;
 import tankbattle.core.battle.live.Livable;
 import tankbattle.core.entity.Entity;
 import tankbattle.core.move.BulletMoveEvent;
-import tankbattle.core.move.MovePropertyEvent;
 import tankbattle.core.paint.BulletPaintEvent;
 import tankbattle.core.shape.Rect;
-import tankbattle.core.shape.ShapePropertyEvent;
 import tankbattle.core.view.View;
 
 /**
@@ -34,10 +32,8 @@ public class Bullet extends Entity implements Damagable {
 	@Override
 	public void init() {
 		super.init();
-		TankBattle.getGame().getProcess()
-				.send(new ShapePropertyEvent(this).setShape(new Rect(20, 20)).setCode(ShapePropertyEvent.SET_SHAPE));
-		TankBattle.getGame().getProcess()
-				.send(new MovePropertyEvent(this).setSpeed(BULLET_SPEED).setCode(MovePropertyEvent.SET_SPEED));
+		this.setShape(new Rect(20, 20));
+		this.setSpeed(BULLET_SPEED);
 	}
 
 	@Override
