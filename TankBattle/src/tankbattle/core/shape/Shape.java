@@ -16,7 +16,11 @@ public abstract class Shape {
 
 	protected double accuracy = 1;
 
-	abstract public Set<Point> points();
+	public abstract Set<Point> points();
+
+	public abstract Rect boundingRect();
+
+	public abstract boolean contains(Point p);
 
 	public Set<Point> rpoints() {
 		Set<Point> ps = new HashSet<>();
@@ -26,8 +30,17 @@ public abstract class Shape {
 		return ps;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public VectorShape toVectorShape(Vector v) {
 		return new VectorShape(this, v);
+	}
+
+	public double boundingRectWidth() {
+		return boundingRect().getWidth();
+	}
+
+	public double boundingRectHeight() {
+		return boundingRect().getHeight();
 	}
 
 	public double accuracy() {

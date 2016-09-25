@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 
 import tankbattle.core.event.Listener;
 import tankbattle.core.others.ImageUtils;
-import tankbattle.core.others.ShapeUtils;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.position.Vector;
 import tankbattle.core.view.EntityNode;
@@ -38,8 +37,8 @@ public class MaterialLostListener implements Listener<EntityPaintEvent> {
 			return;
 		}
 		// 绘制默认材质
-		double w = ShapeUtils.getWidth(event.getPaintable().shape()),
-				h = ShapeUtils.getHeight(event.getPaintable().shape());
+		double w = event.getPaintable().shape().boundingRectWidth(),
+				h = event.getPaintable().shape().boundingRectHeight();
 		node.setWidth(w).setHeight(h);
 		node.setVector(new Vector(-w / 2, -h / 2));
 		event.getNode().setImage(ImageUtils.copyImage(img));

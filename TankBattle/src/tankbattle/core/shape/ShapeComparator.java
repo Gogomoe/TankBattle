@@ -13,11 +13,11 @@ import tankbattle.core.position.Vector;
  * @author Gogo
  *
  */
-public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
+public interface ShapeComparator<T extends Shape, S extends Shape> {
 
-	public boolean contains(T s1, S s2);
+	public boolean contains(VectorShape<T> s1, VectorShape<S> s2);
 
-	public boolean contacts(T s1, S s2);
+	public boolean contacts(VectorShape<T> s1, VectorShape<S> s2);
 
 	/**
 	 * 矩形比较器
@@ -25,19 +25,19 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 	 * @author Gogo
 	 *
 	 */
-	public static class RectComparator implements ShapeComparator<VRect, VRect> {
+	public static class RectComparator implements ShapeComparator<Rect, Rect> {
 
 		@Override
-		public boolean contains(VRect s1, VRect s2) {
-			double hw = s2.getRect().getWidth() / 2, hh = s2.getRect().getHeight() / 2;
+		public boolean contains(VectorShape<Rect> s1, VectorShape<Rect> s2) {
+			double hw = s2.getShape().getWidth() / 2, hh = s2.getShape().getHeight() / 2;
 			double x = s2.vector.getX(), y = s2.getVector().getY();
 			return s1.contains(new Point(x + hw, y + hh)) && s1.contains(new Point(x + hw, y - hh))
 					&& s1.contains(new Point(x - hw, y + hh)) && s1.contains(new Point(x - hw, y - hh));
 		}
 
 		@Override
-		public boolean contacts(VRect s1, VRect s2) {
-			double hw = s2.getRect().getWidth() / 2, hh = s2.getRect().getHeight() / 2;
+		public boolean contacts(VectorShape<Rect> s1, VectorShape<Rect> s2) {
+			double hw = s2.getShape().getWidth() / 2, hh = s2.getShape().getHeight() / 2;
 			double x = s2.vector.getX(), y = s2.getVector().getY();
 			return s1.contains(new Point(x + hw, y + hh)) || s1.contains(new Point(x + hw, y - hh))
 					|| s1.contains(new Point(x - hw, y + hh)) || s1.contains(new Point(x - hw, y - hh));
@@ -51,18 +51,18 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 	 * @author Gogo
 	 *
 	 */
-	public static class CircleComparator implements ShapeComparator<VCircle, VCircle> {
+	public static class CircleComparator implements ShapeComparator<Circle, Circle> {
 
 		@Override
-		public boolean contains(VCircle s1, VCircle s2) {
+		public boolean contains(VectorShape<Circle> s1, VectorShape<Circle> s2) {
 			Vector d = s2.getVector().subtract(s1.getVector());
-			return d.length() + s2.getCircle().getRadius() <= s1.getCircle().getRadius();
+			return d.length() + s2.getShape().getRadius() <= s1.getShape().getRadius();
 		}
 
 		@Override
-		public boolean contacts(VCircle s1, VCircle s2) {
+		public boolean contacts(VectorShape<Circle> s1, VectorShape<Circle> s2) {
 			Vector d = s2.getVector().subtract(s1.getVector());
-			return d.length() <= s2.getCircle().getRadius() + s1.getCircle().getRadius();
+			return d.length() <= s2.getShape().getRadius() + s1.getShape().getRadius();
 		}
 
 	}
@@ -73,18 +73,18 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 	 * @author Gogo
 	 *
 	 */
-	public static class CircleRectComparator implements ShapeComparator<VCircle, VRect> {
+	public static class CircleRectComparator implements ShapeComparator<Circle, Rect> {
 
 		@Override
-		public boolean contains(VCircle c, VRect r) {
+		public boolean contains(VectorShape<Circle> c, VectorShape<Rect> r) {
 			Vector cv = c.getVector();
 			Vector rv = r.getVector();
 			Vector d = rv.subtract(cv);
 
-			if (d.length() > c.getCircle().getRadius()) {
+			if (d.length() > c.getShape().getRadius()) {
 				return false;
 			}
-			double hw = r.getRect().getWidth() / 2, hh = r.getRect().getHeight() / 2;
+			double hw = r.getShape().getWidth() / 2, hh = r.getShape().getHeight() / 2;
 			return (c.contains(rv.add(new Vector(hw, hh)).toPoint()))
 					&& (c.contains(rv.add(new Vector(-hw, hh)).toPoint()))
 					&& (c.contains(rv.add(new Vector(hw, -hh)).toPoint()))
@@ -92,18 +92,18 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 		}
 
 		@Override
-		public boolean contacts(VCircle c, VRect r) {
+		public boolean contacts(VectorShape<Circle> c, VectorShape<Rect> r) {
 			Vector cv = c.getVector();
 			Vector rv = r.getVector();
 			Vector d = rv.subtract(cv);
-			if (d.length() > c.getCircle().getRadius()
-					+ sqrt(pow(r.getRect().getWidth() / 2, 2) + pow(r.getRect().getHeight() / 2, 2))) {
+			if (d.length() > c.getShape().getRadius()
+					+ sqrt(pow(r.getShape().getWidth() / 2, 2) + pow(r.getShape().getHeight() / 2, 2))) {
 				return false;
 			}
-			if (d.length() < c.getCircle().getRadius() + min(r.getRect().getWidth(), r.getRect().getHeight()) / 2) {
+			if (d.length() < c.getShape().getRadius() + min(r.getShape().getWidth(), r.getShape().getHeight()) / 2) {
 				return true;
 			}
-			return r.contains(cv.add(d.multiply(c.getCircle().getRadius() / d.length())).toPoint());
+			return r.contains(cv.add(d.multiply(c.getShape().getRadius() / d.length())).toPoint());
 		}
 	}
 
@@ -113,40 +113,40 @@ public interface ShapeComparator<T extends VectorShape, S extends VectorShape> {
 	 * @author Gogo
 	 *
 	 */
-	public static class RectCircleComparator implements ShapeComparator<VRect, VCircle> {
+	public static class RectCircleComparator implements ShapeComparator<Rect, Circle> {
 
 		@Override
-		public boolean contains(VRect r, VCircle c) {
+		public boolean contains(VectorShape<Rect> r, VectorShape<Circle> c) {
 			Vector cv = c.getVector();
 			Vector rv = r.getVector();
 			Vector d = cv.subtract(rv);
 
-			double hw = r.getRect().getWidth() / 2, hh = r.getRect().getHeight() / 2;
+			double hw = r.getShape().getWidth() / 2, hh = r.getShape().getHeight() / 2;
 
 			if (d.length() > sqrt(pow(hw, 2) + pow(hh, 2))) {
 				return false;
 			}
 			if (d.length() <= 0.1) {
-				return c.getCircle().getRadius() <= min(hw, hh);
+				return c.getShape().getRadius() <= min(hw, hh);
 			}
 
-			return r.contains(rv.add(d.multiply((d.length() + c.getCircle().getRadius()) / d.length())).toPoint());
+			return r.contains(rv.add(d.multiply((d.length() + c.getShape().getRadius()) / d.length())).toPoint());
 
 		}
 
 		@Override
-		public boolean contacts(VRect r, VCircle c) {
+		public boolean contacts(VectorShape<Rect> r, VectorShape<Circle> c) {
 			Vector cv = c.getVector();
 			Vector rv = r.getVector();
 			Vector d = rv.subtract(cv);
-			if (d.length() > c.getCircle().getRadius()
-					+ sqrt(pow(r.getRect().getWidth() / 2, 2) + pow(r.getRect().getHeight() / 2, 2))) {
+			if (d.length() > c.getShape().getRadius()
+					+ sqrt(pow(r.getShape().getWidth() / 2, 2) + pow(r.getShape().getHeight() / 2, 2))) {
 				return false;
 			}
-			if (d.length() < c.getCircle().getRadius() + min(r.getRect().getWidth(), r.getRect().getHeight()) / 2) {
+			if (d.length() < c.getShape().getRadius() + min(r.getShape().getWidth(), r.getShape().getHeight()) / 2) {
 				return true;
 			}
-			return r.contains(cv.add(d.multiply(c.getCircle().getRadius() / d.length())).toPoint());
+			return r.contains(cv.add(d.multiply(c.getShape().getRadius() / d.length())).toPoint());
 		}
 
 	}

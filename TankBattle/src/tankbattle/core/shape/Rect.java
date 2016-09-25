@@ -1,10 +1,10 @@
 package tankbattle.core.shape;
 
+import static java.lang.Math.abs;
 import java.util.HashSet;
 import java.util.Set;
 
 import tankbattle.core.position.Point;
-import tankbattle.core.position.Vector;
 
 /**
  * 表示一个矩形<br>
@@ -28,8 +28,8 @@ public class Rect extends Shape {
 	@Override
 	public Set<Point> points() {
 		Set<Point> set = new HashSet<Point>();
-		for (double y = -height / 2; y <= height / 2 + accuracy / 2; y += accuracy) {
-			for (double x = -width / 2; x <= width / 2 + accuracy / 2; x += accuracy) {
+		for (double y = -height / 2; y <= (height + accuracy) / 2 / 2; y += accuracy) {
+			for (double x = -width / 2; x <= (width + accuracy) / 2 / 2; x += accuracy) {
 				set.add(new Point(x, y));
 			}
 		}
@@ -37,8 +37,8 @@ public class Rect extends Shape {
 	}
 
 	@Override
-	public VRect toVectorShape(Vector v) {
-		return new VRect(this, v);
+	public boolean contains(Point p) {
+		return abs(p.getX()) <= (width + accuracy) / 2 && abs(p.getY()) <= (height + accuracy) / 2;
 	}
 
 	public double getWidth() {
@@ -62,6 +62,11 @@ public class Rect extends Shape {
 	@Override
 	public String toString() {
 		return "Rect {width:" + width + ", height:" + height + "}";
+	}
+
+	@Override
+	public Rect boundingRect() {
+		return new Rect(width, height);
 	}
 
 }

@@ -10,7 +10,6 @@ import tankbattle.core.event.Listener;
 import tankbattle.core.event.ListenerItem;
 import tankbattle.core.move.EntityMoveEvent;
 import tankbattle.core.others.ImageUtils;
-import tankbattle.core.others.ShapeUtils;
 import tankbattle.core.paint.EntityPaintEvent;
 import tankbattle.core.position.Direction;
 import tankbattle.core.position.Vector;
@@ -74,8 +73,8 @@ public class EntityMovePaintListener implements Listener<EntityPaintEvent> {
 			return;
 		}
 		// 得到要绘制的实际宽高
-		int w = (int) ceil(ShapeUtils.getWidth(e.shape()) * swidth),
-				h = (int) ceil(ShapeUtils.getHeight(e.shape()) * sheight);
+		int w = (int) ceil(e.shape().boundingRectWidth() * swidth),
+				h = (int) ceil(e.shape().boundingRectHeight() * sheight);
 		node.setWidth(w).setHeight(h);
 		node.setVector(new Vector(w * offx, h * offy));
 		Image image = null;

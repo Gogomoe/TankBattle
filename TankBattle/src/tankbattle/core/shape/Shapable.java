@@ -26,7 +26,7 @@ public interface Shapable {
 		return shaper().setShape(shape);
 	}
 
-	default public VectorShape vshape() {
+	default public VectorShape<?> vshape() {
 		return shape().toVectorShape(positioner().position().toVector());
 	}
 

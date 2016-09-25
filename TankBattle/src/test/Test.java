@@ -22,18 +22,23 @@ import tankbattle.core.position.Direction;
 import tankbattle.core.position.Point;
 import tankbattle.core.position.Vector;
 import tankbattle.core.shape.Circle;
-import tankbattle.core.shape.VCircle;
+import tankbattle.core.shape.Rect;
+import tankbattle.core.shape.VectorShape;
 import tankbattle.core.tank.Tank;
 import tankbattle.core.time.TimeListener;
 
 public class Test {
 
 	public static void main(String[] args) {
-		TankBattle game = new TankBattle();
-		TankBattle.setGame(game);
-		game.init();
+		/*
+		 * TankBattle game = new TankBattle(); TankBattle.setGame(game);
+		 * game.init();
+		 */
+		for (int i = 0; i < 10000; i++) {
+			shapeTest();
 
-		attackTest();
+		}
+		shapeTest();
 	}
 
 	public static void cutImageTest() {
@@ -81,9 +86,14 @@ public class Test {
 	}
 
 	public static void shapeTest() {
-		VCircle c1 = new VCircle(new Circle(5), new Vector(5, 5));
-		VCircle c2 = new VCircle(new Circle(5), new Vector(-5, 5));
+		VectorShape<Circle> c1 = new VectorShape<Circle>(new Circle(5), new Vector(5, 5));
+		VectorShape<Circle> c2 = new VectorShape<Circle>(new Circle(5), new Vector(-5, 5));
 		System.out.println(c1.contacts(c2));
+		System.out.println(c1.contains(c2));
+		VectorShape<Rect> r1 = new VectorShape<Rect>(new Rect(50, 75), new Vector(5, 5));
+		VectorShape<Rect> r2 = new VectorShape<Rect>(new Rect(600, 480), new Vector(-5, 5));
+		System.out.println(r1.contacts(r2));
+		System.out.println(r1.contains(r2));
 	}
 
 	public static void attackTest() {

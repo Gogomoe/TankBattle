@@ -34,6 +34,11 @@ public class Circle extends Shape {
 		return set;
 	}
 
+	@Override
+	public boolean contains(Point p) {
+		return p.toVector().length() <= radius + accuracy / 2;
+	}
+
 	public double getRadius() {
 		return radius;
 	}
@@ -46,6 +51,11 @@ public class Circle extends Shape {
 	@Override
 	public String toString() {
 		return "Circle {radius:" + radius + "}";
+	}
+
+	@Override
+	public Rect boundingRect() {
+		return new Rect(radius * 2, radius * 2);
 	}
 
 }

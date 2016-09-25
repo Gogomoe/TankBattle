@@ -31,7 +31,7 @@ public class EntityMoveListener {
 			Entity mover = event.getMover();
 			@SuppressWarnings("unchecked")
 			Set<Entity> pre = event.getObj(ContactListener.KEY_PREMOVE, Set.class);
-			VectorShape vshape = mover.vshape();
+			VectorShape<?> vshape = mover.vshape();
 			Set<Entity> post = TankBattle.getGame().getEntityGroup()
 					.getContact(vshape.toVectorShape(vshape.getVector().add(event.getVector())));
 

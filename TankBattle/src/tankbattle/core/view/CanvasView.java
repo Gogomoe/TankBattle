@@ -11,7 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.image.WritableImage;
 import tankbattle.core.TankBattle;
 import tankbattle.core.shape.Rect;
-import tankbattle.core.shape.VRect;
+import tankbattle.core.shape.VectorShape;
 
 /**
  * 一个视图对象<br>
@@ -36,10 +36,11 @@ public class CanvasView extends View {
 	@Override
 	public void paint() {
 		// 窗体在屏幕上的位置
-		VRect rect = new VRect(new Rect(getWidth(), getHeight()), center.toVector());
+		VectorShape<Rect> rect = new VectorShape<Rect>(new Rect(getWidth(), getHeight()), center.toVector());
 		BufferedImage img = new BufferedImage((int) ceil(getWidth()), (int) ceil(getHeight()),
 				BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = img.createGraphics();
+
 		TankBattle.getGame().getEntityGroup().getAll().stream().filter(p -> {
 			// 过滤没显示在屏幕上的节点
 			EntityNode node = p.getNode(this);
@@ -47,7 +48,7 @@ public class CanvasView extends View {
 				p.paint(this);
 			}
 			// 节点在屏幕上的位置
-			VRect canvas = new VRect(new Rect(node.getWidth(), node.getHeight()),
+			VectorShape<Rect> canvas = new VectorShape<Rect>(new Rect(node.getWidth(), node.getHeight()),
 					p.position().add(node.getVector()).toVector());
 			return rect.contacts(canvas);
 		}).sorted((e1, e2) -> {
@@ -70,6 +71,7 @@ public class CanvasView extends View {
 						round((float) node.getPoint().getY()), null);
 			}
 		});
+
 		g.dispose();
 		WritableImage wi = SwingFXUtils.toFXImage(img, null);
 		// 清除上次的绘制

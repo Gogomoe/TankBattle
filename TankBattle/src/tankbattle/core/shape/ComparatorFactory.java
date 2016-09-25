@@ -12,16 +12,20 @@ public class ComparatorFactory {
 
 	public static ComparatorFactory factory = new ComparatorFactory();
 
-	private HashMap<ComparatorType, ShapeComparator<? extends VectorShape, ? extends VectorShape>> comparators = new HashMap<>();
+	private HashMap<ComparatorType<?, ?>, ShapeComparator<?, ?>> comparators = new HashMap<>();
 
 	public ComparatorFactory() {
-
+		this.add(Rect.class, Rect.class, new ShapeComparator.RectComparator());
+		this.add(Rect.class, Circle.class, new ShapeComparator.RectCircleComparator());
+		this.add(Circle.class, Rect.class, new ShapeComparator.CircleRectComparator());
+		this.add(Circle.class, Circle.class, new ShapeComparator.CircleComparator());
 	}
 
-	private static class ComparatorType {
-		private Class<? extends VectorShape> c1, c2;
+	private static class ComparatorType<T extends Shape, S extends Shape> {
+		private Class<T> c1;
+		private Class<S> c2;
 
-		public ComparatorType(Class<? extends VectorShape> c1, Class<? extends VectorShape> c2) {
+		public ComparatorType(Class<T> c1, Class<S> c2) {
 			super();
 			this.c1 = c1;
 			this.c2 = c2;
@@ -45,6 +49,7 @@ public class ComparatorFactory {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
+			@SuppressWarnings("rawtypes")
 			ComparatorType other = (ComparatorType) obj;
 			if (c1 == null) {
 				if (other.c1 != null)
@@ -62,12 +67,12 @@ public class ComparatorFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends VectorShape, S extends VectorShape> ShapeComparator<T, S> get(Class<T> c1, Class<S> c2) {
-		return (ShapeComparator<T, S>) comparators.get(new ComparatorType(c1, c2));
+	public <T extends Shape, S extends Shape> ShapeComparator<T, S> get(Class<T> c1, Class<S> c2) {
+		return (ShapeComparator<T, S>) comparators.get(new ComparatorType<T, S>(c1, c2));
 	}
 
-	public <T extends VectorShape, S extends VectorShape> void add(Class<T> c1, Class<S> c2, ShapeComparator<T, S> c) {
-		comparators.put(new ComparatorType(c1, c2), c);
+	public <T extends Shape, S extends Shape> void add(Class<T> c1, Class<S> c2, ShapeComparator<T, S> c) {
+		comparators.put(new ComparatorType<T, S>(c1, c2), c);
 	}
 
 }

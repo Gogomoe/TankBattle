@@ -22,7 +22,7 @@ public class EntityGroup extends Group<Entity> {
 	 * @param vshape
 	 * @return
 	 */
-	public Set<Entity> getContain(VectorShape vshape) {
+	public Set<Entity> getContain(VectorShape<?> vshape) {
 		if (vshape == null) {
 			return null;
 		}
@@ -38,7 +38,7 @@ public class EntityGroup extends Group<Entity> {
 	 * @param vshape
 	 * @return
 	 */
-	public Set<Entity> getContact(VectorShape vshape) {
+	public Set<Entity> getContact(VectorShape<?> vshape) {
 		if (vshape == null) {
 			return null;
 		}
